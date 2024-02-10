@@ -17,9 +17,27 @@ Let $f_1, f_2, g_1, g_2$ be functions from $\mathbb Z^+$ to $\mathbb Z^+$, and s
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a).
+    Since $f_1\in O(g_1)$, there exist positive constants $c_1, n_1$ such that 
+    $$0\leq f_1(n)\leq c_1g_1(n)\quad \text{for all } n\geq n_1.$$ 
+    Similarly, since $f_2\in O(g_2)$, there exist positive constants $c_2, n_2$ such that 
+    $$0\leq f_2(n)\leq c_2g_2(n)\quad \text{for all } n\geq n_2.$$
 
-    \item Solution to part (b).
+    \item It suffices to show that there exist positive constants $c, n_0$ such that 
+    $$0\leq f_1(n)+f_2(n)\leq cg_1(n)+cg_2(n)\quad \text{for all } n\geq n_0.$$
+    Let $c=\max(c_1, c_2)$ and $n_0=\max(n_1, n_2)$. \\
+    From the definition of $\max$, $c\geq c_1, c_2$ and $n_0\geq n_1, n_2$. \\
+    If $n\geq n_0$, then $n\geq n_1$, thus $0\leq f_1(n) \leq c_1 g_1(n)$ for all $n \geq n_0$.\\
+    Similarly $0\leq f_2(n)\leq c_2g_2(n)$ for all $n\geq n_0$.\\
+    Adding gives $0\leq f_1(n)+f_2(n)\leq c_1g_1(n) + c_2g_2(n)$ for all $n\geq n_0$.\\
+    Since $c\geq c_1, c_2$, we deduce that $c_1g_1(n)\leq cg_1(n)$ and $c_2g_2(n)\leq cg_2(n)$.\\
+    Therefore $0\leq f_1(n)+f_2(n)\leq cg_1(n) + cg_2(n)$ for all $n\geq n_0$, as required.
+
+    \item It suffices to show that there exist positive constants $c, n_0$ such that 
+    $$0\leq f_1(n)\cdot f_2(n)\leq cg_1(n)\cdot g_2(n)\quad \text{for all } n\geq n_0.$$
+    Let $c=c_1 \cdot c_2$ and $n_0=\max(n_1, n_2)$. \\
+    Like in part (a), $0\leq f_1(n) \leq c_1 g_1(n)$ and $0\leq f_2(n)\leq c_2g_2(n)$ for all $n\geq n_0$.\\
+    As $f_1, f_2, g_1, g_2, c_1, c_2$ are all positive, multiplying gives a valid result.\\
+    Thus $0\leq f_1(n)\cdot f_2(n)\leq c_1g_1(n) \cdot c_2g_2(n)\leq cg_1(n)\cdot g_2(n)$ for all $n\geq n_0$, as required.
 \end{enumerate}
 \end{solution}
 \end{document}
