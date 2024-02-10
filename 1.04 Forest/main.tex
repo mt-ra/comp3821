@@ -1,0 +1,46 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+A {\em forest} is a collection of disjoint trees. In other words, a forest is an undirected and acyclic graph, where all of its components are trees. Prove that a forest with $k$ edges has $n - k$ connected components, where $n$ denotes the number of vertices in the forest.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node[circle, draw, very thick] (a) {};
+        \node[circle, draw, very thick, above right = 1cm of a] (b) {};
+        \node[circle, draw, very thick, below right = 0.75cm and 0.25cm of b] (c) {};
+        \node[circle, draw, very thick, below = 0.5cm of a] (d) {};
+
+        \draw[very thick] (d) -- (a) -- (b) -- (c);
+
+        \node[circle, draw, very thick, right = 3cm of b] (e) {};
+        \node[circle, draw, very thick, below right = 2cm of e] (f) {};
+
+        \draw[very thick] (e) -- (f);
+    \end{tikzpicture}
+    \caption{{\em A forest with 4 edges, 6 vertices, and 2 connected components.}}
+\end{figure}
+\end{question}
+
+\begin{solution}
+    A tree containing $n$ vertices has $n-1$ edges. Let $C$ be the set of connected components. 
+    Let $v(c)$ and $e(c)$ denote the number of vertices and edges in the component $c\in C$ respectively.
+
+    Since the forest has $k$ edges, $\displaystyle\sum_{c\in C}e(c)=k$. Since the forest has $n$ vertices, $\displaystyle\sum_{c\in C}v(c)=n$.
+
+    \begin{align*}
+        k&=\sum_{c\in C} e(c)\\
+        &=\sum_{c\in C} (v(c) - 1)\\
+        &=\sum_{c\in C} v(c) - \sum_{c\in C} 1\\
+        &= n-|C|\\
+        \therefore |C|&=n-k
+    \end{align*}
+    Therefore the number of connected components is $n-k$.
+\end{solution}
+\end{document}

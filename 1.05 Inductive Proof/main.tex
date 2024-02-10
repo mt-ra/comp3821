@@ -1,0 +1,25 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Suppose that every student in your lab knows at least one other student. A student $X$ {\em distantly knows} student $Y$ if there exist a chain of students from $X$, who each directly know the next student in the chain, to $Y$. For example, if $X$ knows $Z$ and $Z$ knows $Y$, then $X$ distantly knows $Y$ even if they do not directly know each other. Two students $X$ and $Y$ {\em mutually} distantly know each other if $X$ distantly knows $Y$ and $Y$ distantly knows $X$.
+
+Gerald claims that every student in the lab mutually distantly knows every other student and has come up with the following proof.
+\begin{proof}[``Proof''.]
+We prove that every student mutually distantly knows every other student via induction on the number of students. The base case is $n = 2$, which is true since every student knows at least one other student. Therefore, the two students must know each other which implies that they mutually distantly know each other.
+
+Suppose that the claim is true for all subsets of $k$ students. Consider a group of $(k + 1)$ students. By the inductive step, the first $k$ students in the group mutually distantly know each other. Since the $(k + 1)$th student cannot know no one, they must know at least one person in the group who mutually distantly knows every other person in the group. Therefore, the $(k + 1)$th student also mutually distantly knows every other person, which completes the induction.
+\end{proof}
+
+However, there is a flaw in this proof. Can you find at least one counterexample? What went wrong in the proof?
+\end{question}
+
+\begin{solution}
+Solution here...
+\end{solution}
+\end{document}
