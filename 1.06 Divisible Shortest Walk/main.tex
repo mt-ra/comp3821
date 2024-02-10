@@ -1,0 +1,26 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E, w)$ be a directed and weighted graph with edge weights $w(e)$, which can be negative or positive or zero, for each edge $e \in E$. You may assume that $G$ has no {\em negatively weighted} cycles. Additionally, each vertex is coloured either {\em red} or {\em blue}. Recall that a {\em walk} is a sequence of edges joining a sequence of vertices; there are no restrictions on the edges or vertices (i.e. they may repeat or not repeat).
+
+Given an integer $k \geq 2$, describe an $O(kn(km + n))$ algorithm that returns a walk with the smallest weight, satisfying the following conditions:
+\begin{itemize}
+    \item The walk starts and ends on a vertex coloured red, and
+    \item The number of vertices coloured blue in the walk is divisible by $k$.
+\end{itemize}
+
+{\bfseries Note.} {\em For a directed and weighted graph $G = (V, E, w)$ where the edge weights can be negative, Bellman-Ford will compute the shortest distance from a vertex $u$ to every vertex in time $O(\lvert V \rvert \cdot \lvert E \rvert)$. We will see how it works later but for now, you may use it as a black box.}
+
+{\bfseries Hint.} {\em Try constructing your edges in layers modulo $k$. You should have $km + 2n$ edges and $kn + 2$ vertices in your new graph.}
+\end{question}
+
+\begin{solution}
+Solution here...
+\end{solution}
+\end{document}
