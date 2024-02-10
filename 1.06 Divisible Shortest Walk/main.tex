@@ -21,6 +21,25 @@ Given an integer $k \geq 2$, describe an $O(kn(km + n))$ algorithm that returns 
 \end{question}
 
 \begin{solution}
-Solution here...
+    We can remodel the question with an auxilliary graph $A$, which consists of $k$ layers (zero-indexed), each containing
+    almost identical copies of $G$, except for the fact that all out-edges from blue vertices, 
+    instead of pointing to their neighbour in the current layer, they point to the equivalent of their neighbour 
+    one layer above, with blue vertices in the $(k-1)$th layer having out-edges pointing towards vertices in the $0$th layer.
+    This index of the layer you are currently in represents the number of blue vertices you have crossed so far modulo $k$.
+
+    We add a special \textsc{End} vertex, with $0$-weighted inedges from all red vertices in layer $0$.
+    We should also have a special \textsc{Begin} vertex, which has $0$-weighted out-edges pointing to every red vertex in layer $0$.
+    Applying Bellman-Ford's algorithm on $A$ from the source vertex \textsc{Begin}, and finding the shortest path ending at vertex \textsc{End},
+    will give us our desired path.
+
+    The algorithm is correct because the layer you are currently in represents the number of blue vertices you have crossed so far modulo $k$,
+    and so you can only reach the \textsc{End} vertex if your current path has a number of blue vertices divisible by $k$.
+
+    Without considering the extra nodes and vertices added due to the \textsc{Begin} and \textsc{End} vertices, 
+    there are $km$ edges and $kn$ vertices, as there are essentially $k$ copies of $G$ except that out-edges from 
+    blue vertices have been redirected. The addition the \textsc{Begin} and \textsc{End} introduces at most $n$ new edges and exactly $1$ new vertex each.
+    Therefore the auxilliary graph $A$ has at most $km + 2n$ edges and exactly $kn + 2$ vertices. Therefore the time complexity 
+    of this algorithm is 
+    $$O(\textsc{numVertices}(A)\cdot \textsc{numEdges}(A))=O((kn+2)(km + 2n)) = O(kn(km+n)).$$
 \end{solution}
 \end{document}
