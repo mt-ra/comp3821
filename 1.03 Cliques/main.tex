@@ -1,0 +1,34 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected graph on $n$ vertices. A {\em clique} is a subset $S \subseteq V$ of vertices such that every pair of vertices in $S$ are adjacent. The size of a clique is the number of vertices in the clique.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Let $k \geq 1$ be an integer. How many distinct cliques of size $k$ could there be in $G$?
+
+    \item If $G$ has a clique of size $k$, show that $G$ has a clique of size $\ell$ for all $\ell \leq k$.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item The number of distinct cliques of size $k$ is at most equal to the number of subsets of $V$ of size $k$, of which there are $\binom{n}{k}$, 
+    because all cliques are subsets of $V$. An example of when the number of distinct clique is equal to 
+    $\binom{n}{k}$ is in the complete graph $K_n$. 
+    All subsets of $K_n$ of size $k$ are cliques of size $k$, since all vertices in $K_n$ are adjacent to all other vertices.
+
+
+    \item Suppose that $G$ has a clique of size $k$, and let $C\subseteq V$ be one of these cliques.
+    Since $C$ is a clique, for all $(u, v)\in C\times C$, $u$ and $v$ are adjacent. For any $l\leq k$, we can 
+    choose any subset $S\subseteq C$ of size $l$, and it will be a clique. This is because $S\times S\subseteq C\times C$, 
+    and thus for any $(u, v)\in S\times L$, the same pair $(u,v)$ will also exist in $C$ and therefore $u$ and $v$ will be adjacent.
+
+\end{enumerate}
+\end{solution}
+\end{document}
