@@ -1,0 +1,100 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected graph. A vertex $v$ is a {\em cut vertex} if $G \setminus \{v\}$ has more connected components than $G$. In other words, $v$ splits $G$ into more connected components than $G$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Prove that every graph with at least two vertices has at least two vertices that are not cut vertices.
+
+    \item If $G$ is a simple and connected graph with {\em exactly} two vertices that are not cut vertices, then $G$ must be a path.
+
+    {\bfseries Hint.} {\em Firstly, show that every spanning tree in $G$ has degree at most 2 (i.e. if $T$ is a spanning tree in $G$, then every vertex in $T$ has degree at most 2). Then, show that $G$ cannot be a cycle.}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item We can split $G$ up into its connected components, and handle each one separately.
+
+    \begin{lemma}
+        In a connected graph, every cut vertex is also a cut vertex of any of its spanning trees.
+    \end{lemma}
+    \begin{proof}
+        Let $v$ be a cut vertex of a connected graph $C$. 
+        By definition, removing $v$ will split $C$ into at least two connected components.
+        This means that there exist vertices $a, b$ in $C$ such that after removing $v$, 
+        there will be no path between $a$ and $b$ using the edges in $C$.
+
+        If we consider the same vertices $a,b$ on a spanning tree $T$ of $C$, the removal of $v$ will also lead 
+        to there no path existing between $a$ and $b$, using the edges in $S$.
+        This is because every edge in $T$ is also in $C$. Therefore, removing $v$ results in $T$ being split into at least two connected components, 
+        and thus $v$ is a cut vertex of any spanning tree.
+    \end{proof}
+
+
+    \begin{lemma}
+        A tree with at least 2 vertices has at least 2 not cut vertices.
+    \end{lemma}
+    \begin{proof}
+        All vertices with degree less than 2 are not cut. If a tree has $n$ vertices, then it has $n-1$ edges, and thus 
+        the sum of all the degrees is $2n - 2$ by the Handshake Lemma. 
+        
+        Assume for the sake of contradiction, that $n-1$ vertices are cut.
+        Since a vertex needs a degree of at least 2 to be cut, the sum of degrees is at least $2n - 2$. 
+        Thus the single not cut vertex must have a degree of $0$, which is a contradiction since trees are connected.
+        Therefore a tree cannot have $n-1$ cut vertices.
+
+        Assume for the sake of contradiction, that $n$ vertices are cut. The sum of degrees is at least $2n$ which is greater than the allowed sum of degrees $2n-2$, and thus is a contradiction.
+
+        Therefore at most $n-2$ vertices are cut, and equivalently, at least $2$ vertices are not cut.
+    \end{proof}
+
+    \begin{lemma}
+        A connected graph with at least 2 vertices has at least 2 not cut vertices.
+    \end{lemma}
+    \begin{proof}
+        Trivially from Lemmas 1 and 2.
+    \end{proof}
+
+    If there exists a connected component $C$ in $G$ which contains more than $2$ vertices, then $G$ will have at least $2$ not cut vertices (Lemma 3).
+    Otherwise if all connected components contain only $1$ vertex, then $G$ has at least $2$ isolated vertices. As isolated vertices are not cut, 
+    we can conclude that $G$ has at least 2 not cut vertices.
+    \pagebreak
+    \item From Lemma 1, every cut vertex on $G$ is also a cut vertex on a spanning tree $T$. 
+    Therefore $T$ has at most $2$ not cut vertices.
+    Thus there can be at most $2$ vertices in $T$ with a degree less than 2.
+    Therefore at least $n-2$ vertices in $T$ have a degree of at least 2.
+    
+    Let $n$ be the number of vertices. The number of edges in $T$ is therefore $n-1$, and hence the degree sum is $2n-2$ by the Handshake Lemma.
+    
+    Assume for the sake of contradiction that there exists a vertex $v$ in the spanning tree 
+    with a degree of at least $3$. At least $n-3$ of the remaining $n-1$ edges must have a degree of at least 2.
+    This brings the degree sum up to $3 + 2(n-3)$ which is equal to $2n-3$.
+    The remaining two vertices have a degree of at least 1, bringing the degree sum up to $2n-1$ which is greater than that allowed by the Handshake Lemma, which is a contradiction.
+
+    Therefore any spanning tree in $G$ has a degree of at most 2.
+
+    If $G$ was a cycle, then there are always two paths between any two points, meaning that no removal of any vertex splits the graph into multiple connected components.
+    Hence every vertex of $G$ would be not cut. Since there are at least $3$ vertices in a cycle, this contradicts the statement that $G$ has exactly 2 not cut vertices.
+
+    Therefore $G$ cannot be a cycle.
+
+    Assume for the sake of contradiction that at last one vertex in $G$ had a degree of greater than 3.
+    We could then construct a spanning tree from this vertex, including at least 3 of its adjacent edges, since 
+    it is always possible to expand a tree subgraph into a spanning tree.
+    This contradicts the statement that any spanning tree in $G$ has a degree of at most 2.
+    
+    Therefore $G$ has a degree of at most 2.
+
+    Since $G$ is connected, it can either be a path, or a cycle. Since it is not a cycle, it must be a path.
+
+
+\end{enumerate}
+\end{solution}
+\end{document}

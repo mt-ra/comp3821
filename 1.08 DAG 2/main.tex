@@ -1,0 +1,93 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be a directed and acyclic graph.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that $G$ has {\em at most} one Hamiltonian path. Recall that a Hamiltonian path in $G$ is a path that visits every vertex exactly once.
+
+    \item Prove that $G$ has a {\em unique} topological order if and only if $G$ has a Hamiltonian path.
+
+    {\bfseries Hint.} {\em First, show that if $G$ has a Hamiltonian path $P$, then the order of the vertices in $P$ is, in fact, a topological order. Then, show that if $G$ has no Hamiltonian paths, then $G$ must have at least two distinct topological orders.}
+
+    \item Prove that $G$ has a {\em unique} topological order if and only if, for every pair of vertices $u, v \in V$, either there exist a path from $u$ to $v$ or there exist a path from $v$ to $u$. In other words, every pair of vertices are {\em comparable}.
+
+    \item Hence, describe an $O(m + n)$ algorithm to decide if a directed and acyclic graph $G$ has a Hamiltonian path. In other words, the $\compproblem{HamPath}$ problem is not a {\em hard} problem\footnote{The technical term for {\em hard} problem is $\mathsf{NP}$-complete, but we will see this towards the end of the course.} if $G$ is a DAG.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item 
+    Let $f:V\to \{1, \dots, n\}$ be the topological order of $G$. 
+    In any path on a DAG, the topological order of each successive vertex must increase by definition.
+    Suppose that $G$ had at least two Hamiltonian paths, two of them being $P_1$ and $P_2$, and let the first point of difference be $v_1$ in $P_1$ and $v_2$ in $P_2$ where $v_1\neq v_2$.
+    Without loss of generality, let $f(v_1) < f(v_2)$. Since $P_1$ and $P_2$ have been identical up until this first point of difference, 
+    $v_1$ has not yet appeared in $P_2$. Additionally, $v_1$ cannot appear in $P_2$ at any point after this, since topological order can only increase along a path. 
+    This is a contradiction as Hamiltonian paths must contain all vertices.
+    \item 
+    If $G$ has a Hamiltonian path $P$, then the order of the vertices in $P$ is the topological order. 
+    Since there are $n$ vertices in the Hamiltonian path, and the topological order along any path must increase, 
+    the topological order from the start to the finish of the Hamiltonian path must increase in a counting fashion.
+    There is only one ordering that satisfies this requirement, therefore $G$ has a unique topological order if it has a Hamiltonian path.
+
+    If all edgespairs of vertices with consecutive topological order existed, then $G$ would have a Hamiltonian path.
+    If for all integers $k$ in the range $\{1,\dots, n-1\}$, there existed a directed edge from $f^{-1}(k)$ to $f^{-1}(k + 1)$, then $G$ would have a Hamiltonian path.
+    In other words, if for all pairs of vertices $(u,v)$, such that $u$ and $v$ were consecutive in the topological order, were elements of $E$, then $G$ would have a Hamiltonian path.
+    Therefore if $G$ does not have a Hamiltonian path, then this means that there exists consecutive numbers $a, a + 1$ which correspond to the vertices
+     $u=f^{-1}(a), v=f^{-1}(a+1)$, such that $(u, v)\notin E$.
+    Swapping the order of $u$ and $v$ still results in a valid topological order, because all vertices which point to $v$ had a order of at most $f(u) - 1$ due to the fact
+    that $u$ does not point to $v$. Similarly out-edges of $u$ have a order of at least $f(v) + 1$, and therefore swapping the order is valid.
+    Therefore if $G$ has no Hamiltonian path, then $G$ has at least two distinct topological orders.
+
+    Therefore $G$ has a unique topological ordering if and only if $G$ has a Hamiltonian path.
+    \pagebreak
+    \item 
+    If $G$ has a unique topological order, then $G$ has a Hamiltonian path. Therefore for any pair of vertices $u,v\in V$, 
+    you can find a path either from $u$ to $v$ or from $v$ to $u$ by choosing the vertex that comes 
+    earlier in the Hamiltonian path, and following the path until you reach the latter vertex.
+
+    If for every pair of vertices $u,v\in V$ there exists either a path from $u$ to $v$ or from $v$ to $u$, 
+    then we can use the fact that the graph is acyclic to deduce that their exists a Hamiltonian path using construction.
+    
+    
+    For any path $p$ and a vertex $v$ not in $p$, we can split $p$ into two subpaths $p_1$ and $p_2$ such that 
+    all vertices in $p_1$ have a path to $v$ and all vertices in $p_2$ have a path from $v$. In order to prove this 
+    by contradiction, suppose that there existed a pair of vertices in the path $a, b\in V$ such that $a$ occurs earlier in the path 
+    than $b$, and such that $a$ does not have a path to $v$, and $v$ does not have a path to $b$.
+    Then there must be a path from $v$ to $a$ and a path from $b$ to $v$. However, this would form a cycle since there is also a path from $a$ to $b$.
+    Therefore we can find the subpaths $p_1$, $p_2$. 
+    
+    We can then extend $p_1$ forwards until it reaches $v$, since $p_1.\textit{back}$ has 
+    a path to $v$. Similarly we can extend $p_2$ backwards until it reaches $v$, since there is a path from $v$ to $p_2.\textit{front}$. 
+    We also know that at no point during our extensions will we come across a vertex already in the path, as this would imply there is a cycle.
+    Therefore for any path $p$ such that there exists vertices $v\in V$ that are not in the path, we can extend the path by at least $1$.
+    Therefore by repeatedly performing this method while there are remaining vertices not in the path, we will eventually obtain a path which contains all vertices, 
+    which is a Hamiltonian path, which implies that $G$ has a unique topological order.
+
+    \item 
+    We can perform Kahn's algorithm, however if at any point there are two possible choices for the next vertex in the topological order,
+    we are able to deduce that there is no unique topological order and hence no Hamiltonian path.
+
+    Assume that our vertices are labelled from $0$ to $n-1$, and that the graph is given by an adjancency list representation.
+    Start by constructing the array \textsc{NumParents}, where $\textsc{NumParents}[i]$ is the number of of vertices that have out-edges 
+    which point towards vertex $i$. Filling this out will involve iterating through all vertices, and for each vertex $i$, increment $\textsc{NumParents}[c]$ for each of its children $c$.
+    This process will take $O(m +n)$ time. We then perform a linear search to find the unique source in $O(n)$ time. 
+    If there are multiple sources then there is no Hamiltonian path.
+
+    Let $x$ be a mutable pointer to a vertex, initially pointing to the unique source. 
+    We will then begin a loop, letting $x$ traverse the graph. With each iteration, 
+    loop through each child $c$ of $x$, decrementing $\textsc{NumParents}[c]$, because what we are doing is essentially removing $x$ from the graph.
+    Remember all children $c$ such that the decrement resulted in a zero value. If there was a single child such that this was the case, set $x$ to point to this vertex. 
+    Otherwise if there were multiple, then this means there are multiple possible topological orders, implying that there is no Hamiltonian path.
+    This stage of the algorithm is $O(m +n)$ because each vertex is visited at most once, and each edge is considered at most once.
+
+\end{enumerate}
+\end{solution}
+\end{document}
