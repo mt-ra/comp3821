@@ -1,0 +1,39 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $A[1..n]$ be a sorted array of $n$ {\em distinct} integers. Some of these integers might be positive, negative, or zero.
+\begin{enumerate}[label = (\alph*)]
+    \item Describe an $O(\log n)$ algorithm to decide if there exist some index $i$ such that $A[i] = i$.
+
+    {\bfseries Hint.} {\em Consider the array $B[i] = A[i] - i$.}
+
+    \item Now, suppose we know that $A[1] > 0$. Describe an $O(1)$ algorithm to decide if there exist some index $i$ such that $A[i] = i$.
+
+    {\bfseries Hint.} {\em Again, consider the array $B[i] = A[i] - i$.}
+\end{enumerate}
+\end{question}
+
+\begin{rubric}
+\begin{itemize}
+    \item You should justify why your algorithm is correct and why they run in the allocated time complexities (or faster!).
+
+    \item This task will form part of the portfolio.
+    \item Ensure that your argument is clear and keep reworking your solutions until your lab demonstrator is happy with your work.
+\end{itemize}
+\end{rubric}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Consider the array $B[i]=A[i]-i$. We want to show that the elements of $B$ are nondecreasing.
+    Assume for the sake of contradiction that there exists a $j$ such that 
+
+    \item Solution to part (b).
+\end{enumerate}
+\end{solution}
+\end{document}
