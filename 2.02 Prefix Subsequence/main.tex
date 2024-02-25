@@ -1,0 +1,56 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+You are given a string $S$ of $n$ characters and another string $T$ of $m$ characters such that $m \leq n$. A {\em subsequence} $S'$ of $S$ is any (not necessarily contiguous) sequence of characters within $S$. For example, a subsequence of $S = abcde$ is $S' = abd$. A {\em supersequence} of $S'$ is any sequence of characters that contains $S'$ as a subsequence. For example, $S = bacedf$ is a supersequence of $S' = bcd$. Similarly, a {\em superstring} is a contiguous supersequence.
+
+You want to find the length of the longest subsequence of $S$ that appears as a prefix of $T$. For example, if $S = abcdefgh$ and $T = bcdghf$, then your algorithm should return 5.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Let $T'$ be a prefix of $T$. Show that:
+    \begin{itemize}
+        \item If $T'$ is a subsequence of $S$, then any substring of $T'$ is also a subsequence of $S$.
+        \item If $T'$ is not a subsequence of $S$, then any superstring of $T'$ is not a subsequence of $S$.
+    \end{itemize}
+
+    \item For a given string $A$ of $n$ characters and another string $B$ of $m$ characters (with $m \leq n$), assume that there is an $O(f(n))$ algorithm that decides if $B$ is a subsequence of $A$. Using this algorithm, describe an $O(f(n) \log m)$-time algorithm to compute the length of the longest subsequence of $S$ that appears as a prefix of $T$.
+\end{enumerate}
+\end{question}
+
+\begin{rubric}
+\begin{itemize}
+    \item Your argument should prove both results. You can use any result you previously proved in your argument.
+    
+    \item You should justify why your algorithm is correct and why they run in the allocated time complexities (or faster!).
+
+    \item This task will form part of the portfolio.
+    \item Ensure that your argument is clear and keep reworking your solutions until your lab demonstrator is happy with your work.
+\end{itemize}
+\end{rubric}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item If $T'$ is a subsequence of $S$, and $T''$ is $T'$ but with any number of characters removed from anywhere, then $T''$ will also be a subsequence of $S$.
+    This is because the letters in $T''$ will also exist in that order in $S$. Therefore all substrings of $T'$ will also be subsequences of $S$.
+
+    If $T'$ is not a subsequence of $S$, and $T''$ is $T'$ but with any number of characters inserted at any position,
+    then $T''$ will also not be a subsequence of $S$. This is because if $T''$ were a subsequence of $S$, then $T'$ would also be a subsequence of $S$ due to the previous part.
+    This is a contradiction, therefore any superstring of $T'$ will also not be a subsequence of $S$.
+
+    \item Define the decision problem ``is the prefix of $T$ of length $X$ a subsequence of $S$'' for integer parameters $X$.
+    Let $D(x)$ be the outcome of the decision problem when $X=x$,
+    with $0$ for false and $1$ for true. We can determine $D(x)$ for any $x$ in $O(f(n))$ time.
+    
+    Suppose that $D(k)=1$ for some $k$. By definition, the prefix formed by the first $k$ characters of $T$ is a subsequence of $S$. 
+    From part (a), every substring, including the prefix formed by the first $(k-1)$ characters of $T$, are also subsequences of $S$. Therefore if $D(k)=1$ then $D(k-1)=1$.
+
+    Therefore performing a binary search on the decision problem $f$ for the lastest value $k$ for which $f(k)=1$, 
+    will solve this problem. The time complexity is $O(f(n)\log (n))$.
+\end{enumerate}
+\end{solution}
+\end{document}

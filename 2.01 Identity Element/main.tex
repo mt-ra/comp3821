@@ -31,9 +31,18 @@ Let $A[1..n]$ be a sorted array of $n$ {\em distinct} integers. Some of these in
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
     \item Consider the array $B[i]=A[i]-i$. We want to show that the elements of $B$ are nondecreasing.
-    Assume for the sake of contradiction that there exists a $j$ such that 
+    Assume for the sake of contradiction that there exists a $j$ such that $B[j] > B[j + 1]$.
+    Substituting the definition of $B$ gives us the inequality $A[j]-j > A[j+1]-(j+1)$, which resolves to 
+    $A[j]>A[j+1]-1$. Since the elements are integers, this is equivalent to $A[j]\geq A[j+1]$.
+    This is a contradiction, since $A$ is increasing. Therefore $B$ is nondecreasing.
 
-    \item Solution to part (b).
+    The proposition that there exists some index $i$ such that $A[i]=i$ is equivalent to the proposition that 
+    there exists some index $i$ such that $B[i] = 0$. Performing a binary search on $B$ for the value $0$ will determine if such an index $i$ exists.
+
+    \item Since $A[1]>0$, this means that $B[1]>-1$. As the elements are integers, this implies that $B[1]\geq 0$. 
+    In our algorithm, check if $B[1] = 0$. If $B[1] = 0$, then there does exist an index $i$ satisfying the condition.
+    Otherwise, $B[1] > 0$. Since $B$ is nondecreasing, it is also the case that all elements in $B$ will be greater than $0$, meaning that no such $i$ exists.
+
 \end{enumerate}
 \end{solution}
 \end{document}
