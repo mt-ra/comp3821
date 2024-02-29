@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{algostyle}
+
+\begin{document}
+% \task[regular]{Interpolation}
+
+\begin{question}
+\emph{Interpolation} is the operation of fitting a curve to a set of points. That is, given a set of points $\left\{(x_1, y_1), \dots, (x_k, y_k)\right\}$, interpolation finds a function $f$ such that $f(x_1) = y_1, \dots, f(x_k) = y_k$. The graph of $f$ passes through all the given points.
+
+Throughout this problem, we will assume that arithmetic operations on real and complex numbers take constant time.
+
+\begin{enumerate}[label=(\alph*)]
+    \item (optional) How would you fit a polynomial to \emph{any} $2n+1$ points in $\Theta(n^2)$ time?
+
+    \item How would you fit a polynomial to $2n+1$ values at \emph{specifically} the $(2n+1)$-th roots of unity in $\Theta(n \log n)$ time?
+
+    \item Suggest how to fit a \emph{Laurent polynomial} \[ \sum_{k=-n}^n c_k x^k, \] instead of a polynomial \[ \sum_{k=0}^{2n} c_k' x^k \] to the values at the roots of unity.
+    
+    \item Show that if the values specified at the $2n+1$ roots of unity are real, then $c_k = \overline{c_{-k}}$ for all $k$, where $\overline{\cdot}$ denots complex conjugate.
+\end{enumerate}
+
+The true power of this technique comes from replacing the variable in a polynomial expression with a complex exponential.
+
+\begin{enumerate}[label=(\alph*)]
+    \setcounter{enumi}{4}
+    \item Show how by setting $x = e^{it}$, we can rewrite \[ \sum_{k=-n}^n c_k x^k \] in the form of a \emph{trigonometric polynomial} \[ A_0 + \sum_{k=1}^n A_k \cos(kt + \phi_k), \] where all the coefficients $A_k$ and $\phi_k$ are complex numbers given by
+    \[ A_k = 2\sqrt{c_kc_{-k}}, \;\; \phi_k = -\tan^{-1}\left( \frac{i(c_k-c_{-k})}{(c_k+c_{-k})} \right) \]
+    \item Therefore describe how to fit a trigonometric polynomial to $2n+1$ \emph{equally spaced} points $0, d, 2d, \ldots$ in $\Theta(n \log n)$ time.
+    \item Using the results from parts (d) and (e), show that if the values at each of the $2n+1$ equally spaced points are real, then the trigonometric polynomial interpolation is also a real valued function (i.e. $\phi_k$ and $A_k$ are real valued for all $k$).
+    \item This methodology allows us to interpolate any sequence of equally spaced points with a periodic function in the form of a finite series of several sinusoids.
+    \begin{itemize}
+        \item What distinguishes the sinusoids arising from each term of the trigonometric polynomial?
+        \item What do the coefficients $A_k$ and $\phi_k$ represent?
+    \end{itemize}
+    \item Suggest how this might be applied to:
+    \begin{enumerate}[label=(\roman*)]
+        \item processing audio to remove unwanted low pitch sound (such as wind);
+        \item analysing time series in finance or climatology;
+        \item (optional, hard) remove the \emph{aliasing} effect that arises when an image is reconstructed from samples;
+        \item (optional, very hard) compressing an image using JPEG.
+    \end{enumerate}
+\end{enumerate}
+\end{question}
+
+\begin{rubric}
+\begin{enumerate}
+    \item State a method to find any algebraic expression (not necessarily the coefficient representation) for the fitted polynomial. The question is optional, so you can delve into as much or as little as you like.
+    \item State a method to convert from this particular value representation to the coefficient representation.
+    \item Discuss the differences in fitting a `polynomial' with negative exponents as compared to a regular polynomial.
+    \item Start with the inverse DFT expression for $c_k$ and $c_{-k}$ and show that they are conjugates.
+    \item Perform the substitution and continue manipulating the expression until you reach the desired form.
+    \item Describe how to transform the input in this scenario into inputs suitable for the algorithm developed in the previous parts, and how to `undo' this transformation to recover the solution.
+    \item Combine the results from (d) and (e) to mathematically show that all of the coefficients are real valued.
+    \item It's sufficient to just directly answer the two dot points.
+    \item Only a very cursory explanation is needed here. We don't expect you to know the ins and outs of these applications, but they are starting points for your own investigation into perhaps the most important modern algorithm.
+\end{enumerate}
+
+Expected response length:
+\begin{enumerate}
+    \setcounter{enumi}{1}
+    \item one sentence
+    \item a short paragraph
+    \item a few lines of mathematical working
+    \item a short passage of mathematical working
+    \item a paragraph
+    \item a few lines of mathematical working
+    \item a sentence for each dot point
+    \item a sentence or short paragraph each for (i) and (ii)
+\end{enumerate}
+\end{rubric}
+
+\begin{solution}
+\end{solution}
+
+\end{document}

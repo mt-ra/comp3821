@@ -1,0 +1,140 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+You are given a set $H$ of horizontal line segments and a set $V$ of vertical line segments such that $\lvert H \rvert + \lvert V \rvert = n$. Each horizontal line segment is specified by two $x$-coordinates and one $y$-coordinate $\{x_{i_1}, x_{i_2}, y_i\}$ and each vertical line segment is specified by two $y$-coordinates and one $x$-coordinate $\{y_{i_1}, y_{i_2}, x_i\}$.
+
+{\em In all three subparts, you may assume that all of the $x$ and $y$ coordinates are distinct; in other words, no pair of horizontal lines intersect and no pair of vertical lines intersect.}
+
+\begin{enumerate}[label = (\alph*)]
+    \item Firstly, suppose that each vertical line segment is unbounded from above and below. In other words, each vertical line segment stretches from $-\infty$ to $+\infty$ in its $y$-coordinate.
+
+    Describe an $O(n \log n)$ algorithm to return the number of intersections between line segments in $H$ and {\em lines} in $V$.
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \draw[red, thick, latex-latex] (0.5, -1.5) -- (0.5, 1.5);
+            \draw[red, thick, latex-latex] (3, -1.5) -- (3, 1.5);
+            \draw[red, thick, latex-latex] (1.5, -1.5) -- (1.5, 1.5);
+            \draw[red, thick, latex-latex] (2, -1.5) -- (2, 1.5);
+
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt] (a) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 2cm of a] (b) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, below right = 1cm of a] (c) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 0.75cm of c] (d) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, above right = 1cm of a] (e) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 1.75cm of e] (f) {};
+
+            \draw[thick, blue] (a) -- (b);
+            \draw[thick, blue] (c) -- (d);
+            \draw[thick, blue] (e) -- (f);
+        \end{tikzpicture}
+        \caption{{\em There are six intersections between the horizontal line segments and the vertical lines.}}
+        \label{fig:enter-label}
+    \end{figure}
+
+    {\bfseries Hint.} {\em Sort...}
+
+    \item Now, suppose that each vertical line is bounded from above. In other words, each vertical line has a top endpoint but each vertical line stretches downwards to $-\infty$. We call these {\em rays} and each ray can be specified by one $x$-coordinate and one $y$-coordinate $\{x_i, y_i\}$.
+    
+    Describe an $O(n \left(\log n\right)^2)$ algorithm that returns the number of intersections between line segments in $H$ and vertical {\em rays} in $V$.
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (0.5, 1.5) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (1.5, -0.25) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (2, 0.65) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (3, 1.25) {};
+            
+            \draw[red, thick, latex-] (0.5, -1.5) -- (0.5, 1.5);
+            \draw[red, thick, latex-] (3, -1.5) -- (3, 1.25);
+            \draw[red, thick, latex-] (1.5, -1.5) -- (1.5, -0.25);
+            \draw[red, thick, latex-] (2, -1.5) -- (2, 0.65);
+
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt] (a) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 2cm of a] (b) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, below right = 1cm of a] (c) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 0.75cm of c] (d) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, above right = 1cm of a] (e) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 1.75cm of e] (f) {};
+
+            \draw[thick, blue] (a) -- (b);
+            \draw[thick, blue] (c) -- (d);
+            \draw[thick, blue] (e) -- (f);
+        \end{tikzpicture}
+        \caption{{\em There are three intersections between the horizontal line segments and the vertical rays.}}
+        \label{fig:enter-label}
+    \end{figure}
+
+    \item We now revisit the original problem. Suppose that each vertical ray is bounded from below. In other words, each vertical ray has a top and bottom endpoint. Each of these vertical line segments can be specified by one $x$-coordinate and two $y$-coordinates $\{x_i, y_{i_1}, y_{i_2}\}$.
+    
+    Describe an $O(n(\log n)^3)$ algorithm that returns the number of intersections between line segments in $H$ and line segments in $V$.
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (0.5, -1.5) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (0.5, 1.5) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (1.5, -0.25) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (1.5, -1.25) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (2, 0.65) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (2, -0.5) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (3, 1.25) {};
+            \node[fill = red, circle, inner sep = 0pt, minimum size = 4pt] at (3, 0) {};
+            
+            \draw[red, thick] (0.5, -1.5) -- (0.5, 1.5);
+            \draw[red, thick] (3, 0) -- (3, 1.25);
+            \draw[red, thick] (1.5, -1.25) -- (1.5, -0.25);
+            \draw[red, thick] (2, -0.5) -- (2, 0.65);
+
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt] (a) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 2cm of a] (b) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, below right = 1cm of a] (c) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 0.75cm of c] (d) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, above right = 1cm of a] (e) {};
+            \node[fill = blue, circle, inner sep = 0pt, minimum size = 4pt, right = 1.75cm of e] (f) {};
+
+            \draw[thick, blue] (a) -- (b);
+            \draw[thick, blue] (c) -- (d);
+            \draw[thick, blue] (e) -- (f);
+        \end{tikzpicture}
+        \caption{{\em There are three intersections between the horizontal line segments and the vertical line segments.}}
+        \label{fig:enter-label}
+    \end{figure}
+
+    {\bfseries Note.} {\em You can obtain an $O(n (\log n)^2)$ and $O(n \log n)$-time algorithm by doing a pre-processing step, either in part (b) or part (c).}
+\end{enumerate}
+\end{question}
+
+\begin{rubric}
+\begin{itemize}
+    \item Your solution should clearly outline which subpart you're answering.
+
+    \item If your solution is a simple modification of a previous solution, you do not need to restate the solution; you can simply refer to the previous part in your solution.
+
+    \item As usual, you should argue the correctness of the algorithm and its time complexity.
+
+    \item This task will form part of the portfolio.
+    \item Ensure that your argument is clear and keep reworking your solutions until your lab demonstrator is happy with your work.
+\end{itemize}
+\end{rubric}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a).
+
+    \item Solution to part (b).
+
+    \item Solution to part (c).
+\end{enumerate}
+\end{solution}
+\end{document}
