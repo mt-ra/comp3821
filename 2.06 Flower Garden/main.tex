@@ -115,12 +115,12 @@ You are not guaranteed that a flower belongs to a garden; it is possible that a 
         \item Coordinates
     \end{itemize}
 
-    You are given an array $G$ of gardens, sorted primarily by the y-coordinate of their bottom-right corners, 
-    and secondarily by the x-coordinate of their bottom-right corners. 
+    You are given an array $G$ of gardens, sorted by the y-coordinate of their bottom-right corners.
     You are also given an array $F$ of flowers, sorted by their y-coordinate.
     Let $n$ be equal to the sum of the number of flowers and gardens.
 
     For each flower, determine the garden which it belongs to.
+    Return this solution as a list of pairs $(F_i, G_j)$ of flowers and the garden each belongs to.
 
     \pagebreak
 
@@ -138,8 +138,8 @@ You are not guaranteed that a flower belongs to a garden; it is possible that a 
 
     Imagine that a horizontal line is drawn at the median entity (bottom-right corner if it is a garden).
     All gardens in $G_R$ are completely above this line. However the gardens in $G_L$ are either completely below the line, or intersecting with this line.
-    We can split $G_L$ into two subsequences $S_B$ (B for "completely below the line"), and $S_I$ (I for intersecting with the line).
-    Both these subsequences can be extracted into arrays $G_B$ and $G_I$, which are both sorted in the same fashion as $G$.
+    We can split $G_L$ into two subsequences, one containing all the gardens completely below the line, and one containing all the gardens intersecting with the line.
+    Both these subsequences can be extracted into arrays $G_B$ (B for "completely below") and $G_I$ (I for intersecting), which are both sorted in the same fashion as $G$.
     Since $G$ is already sorted in this way, constructing $G_B$ and $G_I$ takes $O(n)$ time.
 
     We can now divide this problem into two problems:
@@ -151,10 +151,25 @@ You are not guaranteed that a flower belongs to a garden; it is possible that a 
 
     Note that the gardens in $G_I$ are left out of the division. We will use this array again during the combine step.
 
+    \pagebreak
 
     \textbf{Base Case}
 
+    The base case is when the total number of entities in the problem becomes one.
+    This is guaranteed to happen as the problem size halves with each division.
+    If there is one flower, then return the flower paired with \textsc{NULL}. 
+    If there is one garden, then return an empty list.
+
     \textbf{Combine}
+
+    Both subproblems will return an array of pairs of flowers and their corresponding garden.
+    Concatenate these two lists to form $L$. Perform a sweep of this list to find all the flowers which do not have a corresponding garden yet,
+    and extracting (deleting them from the original list) these flowers into an array $F_N$ (N for "not in garden yet").
+    We can perform the solution from part (a) on the array of flowers $F_N$ and the sorted array $G_I$.
+    This takes $O(n\log n)$, and returns another array of flowers paired with their corresponding gardens.
+    Concatenate this list with $L$. Return this final list.
+
+    % add a bit justifying the time complexity using the master theorem
 
 
 \end{enumerate}

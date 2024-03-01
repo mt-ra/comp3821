@@ -130,11 +130,55 @@ You are given a set $H$ of horizontal line segments and a set $V$ of vertical li
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a).
+    \item Sort the vertical lines in increasing order of x-coordinate value.
+    For each of the horizontal line segments, perform a binary search to find the first 
+    vertical line for which the left end of the horizontal line segment lies to the right.
+    Do the same for the right end of the line segment.
+    By subtracting the indices, you get the number of times each horizontal line segments intersects a vertical line.
+    Summing all these differences together gives the total number of intersections.
 
-    \item Solution to part (b).
+    \item We will solve this problem using a divide and conquer approach. Solution to part (a).
 
-    \item Solution to part (c).
+    \textbf{Divide}
+
+    Sort both the horizontal line segments and vertical ray end-points in increasing order of y-coordinate.
+    Divide both the $V$ and $H$ arrays based on whether each element is above or below the median element.
+    We split $V$ into $V_B$ (below) and $V_A$ (above). Similarly we can split $H$ into $H_B$ (below) and $H_A$ (above).
+    Note that $V_B + H_B = V_A + H_B = n/2$.
+
+    We can divide the problem now into two subproblems of size $n/2$. Each problem returns an integer, being the number of intersections.
+    \begin{itemize}
+        \item $V_B$ and $H_B$
+        \item $V_A$ and $H_A$
+    \end{itemize}
+
+    \textbf{Combine}
+
+    The $(V_B, H_B)$ subproblem will account for the intersections of the vertical rays in $V_B$
+    with the horizontal line segments in $H_B$.
+    The $(V_A, H_A)$ subproblem will account for the intersections of the vertical rays in $V_A$
+    with the horizontal line segment sin $H_A$.
+    There is still one set of intersections which need to be accounted for, which are the intersections 
+    of the vertical rays in $V_A$ with the horizontal line segments below in $H_B$.
+
+    Since all the $V_A$ rays are guaranteed to start above all the line segments in $H_B$, 
+    they may as well be treated as lines extending in both directions up and down. 
+    We can use the algorithm describe in part (a) to solve this step in $O(n\log n)$ time.
+
+    \textbf{Base Case}
+    The base case occurs when there is only one entity in total. 
+    In both cases, there are zero intersections.
+
+    \textbf{Time Complexity}
+
+    blah blah master theorem
+
+
+    \item 
+    Use part (b) to find the intersection of the horizontal lines in $H$ with downward rays originating from the top endpoints of all the vertical line segments in $V$.
+    Do the same thing but with downward rays originating from the bottom endpoints of the vertical line segments in $V$. Subtract these two results.
+    The first application of the algorithm overcounts the number of intersections, FINISH THIS LATER!!
+
 \end{enumerate}
 \end{solution}
 \end{document}
