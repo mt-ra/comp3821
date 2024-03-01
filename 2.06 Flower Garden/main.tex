@@ -97,7 +97,66 @@ You are not guaranteed that a flower belongs to a garden; it is possible that a 
     Since there are no horizontal overlaps, the flower is either in this garden, or it is not in any garden at all. Performing this check is $O(1)$.
     Since the number of flowers and gardens are both at maximum $n$, this full process of finding the flowers' corresponding gardens takes $O(n\log n)$.
 
-    \item Sort gardens in order of increasing x-coordinate of bottom-left corner, and then stably sort in order of increasing y-coordinate of bottom-left corner.
+    \item We will approach the whole problem using a divide and conquer approach, each time halving the total number of flowers and gardens.
+    First, we will preprocess the input. Sort gardens in order of increasing x-coordinate of bottom-left corner, and then stably sort in order of increasing y-coordinate of bottom-left corner. This preprocessing stage should have a time cost of $O(n\log n)$.
+    Now we can begin the divide and conquer algorithm to solve the following question:
+
+    \textbf{Problem Statement}
+
+    Each garden is an object with the following attributes:
+    \begin{itemize}
+        \item Initial index before preprocessing
+        \item Coordinates of bottom-left corner
+        \item Coordinates of top-right corner
+    \end{itemize}
+    Each flower is an object with the following attributes:
+    \begin{itemize}
+        \item Initial index before preprocessing 
+        \item Coordinates
+    \end{itemize}
+
+    You are given an array $G$ of gardens, sorted primarily by the y-coordinate of their bottom-right corners, 
+    and secondarily by the x-coordinate of their bottom-right corners. 
+    You are also given an array $F$ of flowers, sorted by their y-coordinate.
+    Let $n$ be equal to the sum of the number of flowers and gardens.
+
+    For each flower, determine the garden which it belongs to.
+
+    \pagebreak
+
+    \textbf{Divide}
+
+    The first step of the divide step is to find the median of the two sorted arrays $G$ and $F$ in $O(n)$ time.
+    We can do this simply by traversing the $G$ and $F$ arrays concurrently with one pointer each, 
+    with each iteration determining which pointer to increment by comparing the y-coordinate of the entities,
+    and terminating when a total of $n/2$ pointer increments have been performed. 
+    From this we can divide $G$ into two subarrays $G_L$ and $G_R$, which are the gardens to the 
+    left and the right of the median entity respectively. These subarrays are sorted in the same fashion that $G$ is.
+    We can also divide $F$ into two sorted subarrays $F_L$ and $F_R$, which are the the flowers to the left and the right of the median entity respectively.
+    Note that $G_L + F_L = G_R + G_L = n/2$.
+    Finding and copying these sorted subarrays takes $O(n)$ time.
+
+    Imagine that a horizontal line is drawn at the median entity (bottom-right corner if it is a garden).
+    All gardens in $G_R$ are completely above this line. However the gardens in $G_L$ are either completely below the line, or intersecting with this line.
+    We can split $G_L$ into two subsequences $S_B$ (B for "completely below the line"), and $S_I$ (I for intersecting with the line).
+    Both these subsequences can be extracted into arrays $G_B$ and $G_I$, which are both sorted in the same fashion as $G$.
+    Since $G$ is already sorted in this way, constructing $G_B$ and $G_I$ takes $O(n)$ time.
+
+    We can now divide this problem into two problems:
+    \begin{itemize}
+        \item Sorted flower array $F_L$, sorted garden array $G_B$.
+        \item Sorted flower array $F_R$, sorted garden array $G_R$.
+    \end{itemize}
+    Both of these subproblems have an $n'\leq n/2$.
+
+    Note that the gardens in $G_I$ are left out of the division. We will use this array again during the combine step.
+
+
+    \textbf{Base Case}
+
+    \textbf{Combine}
+
+
 \end{enumerate}
 \end{solution}
 \end{document}
