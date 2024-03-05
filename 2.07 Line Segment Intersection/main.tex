@@ -163,21 +163,27 @@ You are given a set $H$ of horizontal line segments and a set $V$ of vertical li
 
     Since all the $V_A$ rays are guaranteed to start above all the line segments in $H_B$, 
     they may as well be treated as lines extending in both directions up and down. 
-    We can use the algorithm describe in part (a) to solve this step in $O(n\log n)$ time.
+    We can use the algorithm described in part (a) to solve this step in $O(n\log n)$ time.
 
     \textbf{Base Case}
+
     The base case occurs when there is only one entity in total. 
     In both cases, there are zero intersections.
 
     \textbf{Time Complexity}
 
-    blah blah master theorem
+    The time cost satisfies the the recurrence $T(n)=2T(\frac{n}{2}) + n\log n$.
+    According to the Master Theorem, $T(n)\in O(n(\log n)^2)$.
 
 
     \item 
     Use part (b) to find the intersection of the horizontal lines in $H$ with downward rays originating from the top endpoints of all the vertical line segments in $V$.
     Do the same thing but with downward rays originating from the bottom endpoints of the vertical line segments in $V$. Subtract these two results.
-    The first application of the algorithm overcounts the number of intersections, FINISH THIS LATER!!
+    The first application of the algorithm overcounts the number of intersections, because it counts the 
+    nonexistent intersections below the bottom endpoints. Subtracting the result of the 
+    second application of the algorithm gets rid of the intersections below the bottom endpoints.
+
+    The time complexity is $O(n(\log n)^2)$.
 
 \end{enumerate}
 \end{solution}

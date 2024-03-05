@@ -169,6 +169,10 @@ You are not guaranteed that a flower belongs to a garden; it is possible that a 
     This takes $O(n\log n)$, and returns another array of flowers paired with their corresponding gardens.
     Concatenate this list with $L$. Return this final list.
 
+    \textbf{Time Complexity}
+
+    The time cost satisfies the the recurrence $T(n)=2T(\frac{n}{2}) + n\log n$.
+    According to the Master Theorem, $T(n)\in O(n(\log n)^2)$.
     % add a bit justifying the time complexity using the master theorem
 
 
