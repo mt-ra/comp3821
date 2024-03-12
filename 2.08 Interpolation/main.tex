@@ -70,6 +70,18 @@ Expected response length:
 \end{rubric}
 
 \begin{solution}
+
+    (a)
+
+    (b) The Inverse DFT solves this problem, where we just perform an FFT, 
+    but replace the $(2n+1)$th root of unity with its complex conjugate, and scale the 
+    resulting output values by $1/(2n+1)$.
+
+    (c) Let $\omega$ be the $(2n+1)$-th root of unity with the smallest positive argument.
+
+    Note that for positive integers $i$, it is true that $\omega^{n+i}=1\times\omega^{n+1}=(\omega^{2n+1})^{-1}\times\omega^{n+i}=\omega^{-n-1+i}$.
+    Suppose that we have a polynomial $P$ fitted to 2n+1 values at the $(2n+1)$-th roots of unity.
+    $$P(x)=\sum_{k=0}^{n}c_kx^k.$$
 \end{solution}
 
 \end{document}
