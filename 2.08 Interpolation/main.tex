@@ -69,6 +69,8 @@ Expected response length:
 \end{enumerate}
 \end{rubric}
 
+\pagebreak
+
 \begin{solution}
 
     (a)
@@ -77,11 +79,128 @@ Expected response length:
     but replace the $(2n+1)$th root of unity with its complex conjugate, and scale the 
     resulting output values by $1/(2n+1)$.
 
-    (c) Let $\omega$ be the $(2n+1)$-th root of unity with the smallest positive argument.
+    (c) Let $\omega$ be a $(2n+1)$-th root of unity.
 
     Note that for positive integers $i$, it is true that $\omega^{n+i}=1\times\omega^{n+1}=(\omega^{2n+1})^{-1}\times\omega^{n+i}=\omega^{-n-1+i}$.
     Suppose that we have a polynomial $P$ fitted to 2n+1 values at the $(2n+1)$-th roots of unity.
-    $$P(x)=\sum_{k=0}^{n}c_kx^k.$$
+    $$P(x)=\sum_{k=0}^{2n}c'_kx^k.$$
+    Using our observation from above, we can deduce that if $x$ is a $(2n+1)$-th root of unity,
+    \begin{align*}
+        P(x) &= \sum_{k=0}^{2n}c'_kx^k\\
+        &= \sum_{k=n+1}^{2n}c'_kx^k + \sum_{k=0}^{n}c'_kx^k\\
+        &= \sum_{p=-n}^{-1}c'_kx^{p+2n+1} + \sum_{k=0}^{n}c'_kx^k \qquad (\text{Let } k=p+2n+1)\\
+        &= \sum_{p=-n}^{-1}c'_kx^{p} + \sum_{k=0}^{n}c'_kx^k \qquad (\text{Since } \omega^{n+i}=\omega^{-n-1+i})\\
+    \end{align*}
+
+    Therefore let $c_k=c'_k$ for $0\leq k \leq n$. Let $c_k=c'_{k+2n+1}$ for $-n\leq k \leq -1$.
+
+    (d) Note that the relationship between a fitted polynomial and its corresponding Laurent polynomial is bijective,
+    as the Laurent polynomial is simply the polynomial but with the coefficients rearranged.
+    Suppose that two Laurent polynomials of degree $N$ pass through the same $N + 1$ points. 
+    Their corresponding polynomials will therefore also pass through the same $N + 1$ points.
+    Therefore their corresponding polynomials are identical.
+    Since this correspondence is bijective, this means that the Laurent polynomials must also be identical.
+
+    For any $(2n+1)$-th roots of unity $\omega$, it is true that $\omega \cdot \overline{\omega}=1$ and thus $\overline{\omega}=\omega^{-1}$.
+    Since the value of the Laurent polynomial evaluated at any $\omega$ is real, this means that $P(\omega)=\overline{P(\omega)}$.
+    \begin{align*}
+        \sum_{k=-n}^{n}c_k\omega^k &= \overline{\sum_{k=-n}^{n}c_k\omega^k}\\
+        &= \sum_{k=-n}^{n}\overline{c_k}(\overline{\omega})^k \\
+        &= \sum_{k=-n}^{n}\overline{c_k}\omega^{-k} \\
+        \sum_{k=-n}^{n}c_k\omega^k &= \sum_{k=-n}^{n}\overline{c_{-k}}\omega^{k}
+    \end{align*}
+
+    These last two Laurent polynomials have a degree of $2n$ and are equal for all $(2n+1)$-th roots of unity $\omega$, and therefore must be identical.
+    Therefore $c_k=\overline{c_{-k}}$ for all $k$.
+
+    \pagebreak
+    
+    (e) For any positive real number $n$ and sequence $\{c_{-n}, c_{-(n-1)},\dots, c_{n-1}, c_n\}$,
+
+    For any $1\leq k \leq n$,
+    \begin{align*}
+        \cos\left(\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\right) &= \frac{1}{\sqrt{1+\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)^2}}\\
+        &= \frac{c_k+c_{-k}}{\sqrt{{(c_k+c_{-k})^2-(c_k-c_{-k})^2}}}\\
+        &= \frac{c_k+c_{-k}}{2\sqrt{c_kc_{-k}}}
+    \end{align*}
+
+    \begin{align*}
+        \sin\left(\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\right) &= \frac{\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)}{\sqrt{1+\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)^2}}\\
+        &= \frac{c_k+c_{-k}}{2\sqrt{c_kc_{-k}}}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\\
+        &= i\frac{c_k-c_{-k}}{2\sqrt{c_kc_{-k}}}
+    \end{align*}
+
+
+
+    Therefore,
+    \begin{align*}
+        C(t) &:= c_0+\sum_{k=1}^{n}\left(2\sqrt{c_kc_{-k}}\cos\left(kt-\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\right)\right) \\
+        &= c_0+\sum_{k=1}^{n}\left(2\sqrt{c_kc_{-k}}\left(\cos(kt)\cos\left(\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\right) + \sin(kt)\sin\left(\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\right)\right)\right)\\
+        &= c_0+\sum_{k=1}^{n}\left(2\sqrt{c_kc_{-k}}\left(\cos(kt)\frac{c_k+c_{-k}}{2\sqrt{c_kc_{-k}}} + \sin(kt)i\frac{c_k-c_{-k}}{2\sqrt{c_kc_{-k}}}\right)\right)\\
+        &= c_0+\sum_{k=1}^{n}\left(\cos(kt)(c_k+c_{-k}) + i\sin(kt)(c_k-c_{-k})\right)\\
+        &= c_0+\sum_{k=1}^{n}\left(c_k(\cos(kt) + i\sin(kt)) + c_{-k}(\cos(kt) - i\sin(kt))\right)\\
+        &= c_0+\sum_{k=1}^{n}\left(c_k(e^{it})^k + c_{-k}(e^{it})^{-k}\right)\\
+        &= \sum_{k=-n}^{n}c_k(e^{it})^k
+    \end{align*}
+
+\end{solution}
+\pagebreak
+\begin{solution}
+
+    (f) Suppose that we have found a Laurent polynomial $L(x)$ which fits values taken at the $(2n + 1)$-th roots of unity.
+    That is, given $\omega$ is the $(2n+1)$-th root of unity with the smallest positive argument, for all $0\leq k \leq 2n$:
+    $$L(\omega^k)=v_{k}.$$
+
+    Therefore the trigonometric polynomial,
+    $$C(t):=c_0+\sum_{k=1}^{n}\left(2\sqrt{c_kc_{-k}}\cos\left(kt-\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\right)\right)$$
+    will fit those same values, with $x=e^{it}$. That is, for all $0\leq k \leq 2n$:
+    $$C\left(k\frac{2\pi}{2n+1}\right)=v_k.$$
+    To extend this approach to all sets of evenly spaced points in the form $(0, v_0), (d, v_1), (2d, v_2),\dots$, we can just scale $C$ along the input axis.
+    In this case we want a scaling factor of $\frac{d(2n+1)}{2\pi}$.
+
+    Therefore the polynomial 
+    $$Q(t) := C\left(\frac{2\pi}{d(2n+1)}t\right)$$
+    will successfully fit these evenly spaced points.
+
+    To summarise, we are given the points $(0, v_0), (d, v_1), (2d, v_2),\dots, (2nd, v_{2n})$ to interpolate.
+    Perform the strategy performed in part (b) to find a polynomial $P(x)=\sum_{k=0}^{2n}c'_kx^k$ which passes 
+    through the points $(\omega^0, v_0), (\omega^1, v_1), \dots, (\omega^{2n}, v_{2n})$.
+    This process takes $O(n\log n)$ time.
+    
+    By rearranging the coefficients as discussed in part (c), 
+    we can then find a \\Laurent polynomial $L(x) = \sum_{k=-n}^{n}c_kx^k$ which passes through the \\same points $(\omega^0, v_0), (\omega^1, v_1), \dots, (\omega^{2n}, v_{2n})$.
+    This step takes $O(n)$ time. 
+
+    Then we can find the trigonometric polynomial $C(x)$ which passes through \\the points $(0\frac{2\pi}{2n+1}, v_0), (1\frac{2\pi}{2n+1}, v_1), \dots, (2n\frac{2\pi}{2n+1}, v_{2n})$,
+    also taking $O(n)$ time. Finally we scale this polynomial into $Q(x)$, which passes through $(0, v_0), (d, v_1), \dots, (2nd, v_{2n})$. This also takes $O(n)$ time.
+
+    Therefore we can interpolate these evenly spaced points in $O(n\log n)$ time, dominated by the inverse DFT stage at the beginning.
+
+    (g) If the output values are real, then using our result from (d):
+    \begin{align*}
+        A_k &=2\sqrt{c_kc_{-k}}\\
+        &=2\sqrt{c_k\overline{c_k}}\\
+        &=2\sqrt{|c|}\in \mathbb{R}
+    \end{align*}
+    \begin{align*}
+        \phi_k &= -\tan^{-1}\left(i\frac{c_k-c_{-k}}{c_k+c_{-k}}\right)\\
+        &= -\tan^{-1}\left(i\frac{c_k-\overline{c_k}}{c_k+\overline{c_k}}\right)\\
+        &= -\tan^{-1}\left(i\frac{2i\Im(c_k)}{2\Re(c_k)}\right)\\
+        &= \tan^{-1}\left(\frac{\Im(c_k)}{\Re(c_k)}\right) \in \mathbb{R}
+    \end{align*}
+
+    \pagebreak 
+
+    (h) (i) Take samples of the voltage of the sound wave at evenly spaced, finely spaced points in time.
+    Use the strategy in (g) to interpolate these points with the sum of sinusoids.
+    Get rid of the low frequency sinusoids, and evaluate the value of this new modified trigonometric polynomial at the original points in time.
+
+    (ii) This may be useful to discover periodic trends in finance or climatology that may appear invisible to the human eye.
+    These trends can be used to turn a profit.
+
+
+
+
 \end{solution}
 
 \end{document}
