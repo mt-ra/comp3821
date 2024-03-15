@@ -1,0 +1,38 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Alice wants to throw a party and is deciding who to invite. She has $n$ people to choose from, and she has created a list consisting of pairs of people who know each other. She wants to invite as many people as possible, subject to  the following two constraints.
+\begin{itemize}
+    \item Each person should have at least five other people whom they know.
+    \item Each person should also have at least five other people whom they do not know.
+\end{itemize}
+
+Formally, you are given the list of $n$ people and the list of all pairs of people who {\em mutually} know each other; that is, you may assume that if $X$ knows $Y$, $Y$ also knows $X$. To make things simpler, we can model the problem as a graph. Each person is a vertex, and an {\em undirected} edge connects two people $X, Y$ if and only if $X$ and $Y$ mutually know each other. Therefore, the input can be represented by a graph $G = (V, E)$ and an adjacency matrix $A[1..n, 1..n]$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Describe an $O(n^3)$ algorithm to return a subset of maximum cardinality of people satisfying the two constraints.
+
+    \item Argue that your algorithm produces an optimal subset.
+
+    \item Prove that the optimal subset is {\em unique}.
+
+    {\bfseries Hint.} {\em Union-closed families have a unique ``largest element''.}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) goes here.
+
+    \item Solution to part (b) goes here.
+
+    \item Solution to part (c) goes here.
+\end{enumerate}
+\end{solution}
+\end{document}

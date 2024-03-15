@@ -64,8 +64,20 @@ Let $A[1..n]$ be an array of $n$ distinct and positive integers. Given an intege
 We will now begin a loop, where in each iteration, either the $l$ advances right, or $r$ advances left.
 With every iteration, compare the sum of the elements $A[l]+A[r]$ with the target sum $x$.
 If the sum is greater than $x$, then advance the $r$ pointer left. If the sum is less than $x$, then advance the $l$ pointer right.
-If the sum is equal to $x$, then check if $A[l]>A[r]$. If this final condition is true, then increment the counter.
+If the sum is equal to $x$, \textbf{then check if} $A[l]>A[r]$. If this final condition is true, then increment the counter.
 Terminate the loop when either pointer steps out of their own subarray.
+
+\textbf{Why this method does not skip any pairs}
+
+Suppose that there is a pair of indices $(i,j)$ such that the conditions are satisfied.
+At some point during the divide and conquer, $A[i]$ will exist in the left subarray and $A[j]$ will exist in the right subarray.
+Either the left pointer $l$ reaches $A[i]$ first, or the right pointer $r$ reaches $A[j]$ first.
+
+Without loss of generality, assume that the left pointer $l$ reaches $A[i]$ before $r$ reaches $A[j]$.
+When $l$ reaches $A[i]$, since each subarray is sorted, and $r$ is to the right of $A[j]$, and $A[i]+A[j]=x$, 
+this must mean that $A[i]+A[r]>x$. In this case, $r$ must be decremented, and will continue to be decremented until $A[i] + A[r] \leq x$.
+This occurs exactly when $r=j$. Therefore the pair cannot be skipped. The other case is symmetrical.
+
 
 \end{solution}
 \end{document}

@@ -1,0 +1,26 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Consider the following problem.
+
+\begin{itemize}
+    \item[] {\em Let $[n] \coloneqq \{1, \dots, n\}$. What is the size of the largest subset $S \subseteq [n]$ such that every pair of elements in $S$ is coprime?}
+\end{itemize}
+
+Let $P_n$ denote the set of primes in $[n]$. It is clear that $S \coloneqq \{1\} \cup P_n$ is a subset that satisfies the condition that every pair of elements in $S$ is coprime. Prove that $\lvert S \rvert$ is correct.
+
+{\bfseries Note.} {\em This implies that the natural greedy algorithm of ``include $x$ iff. $x$ is prime'' returns a subset of maximum cardinality.}
+
+{\bfseries Hint.} {\em There are a few ways to prove this; one way is to define an injection. Another way is to use a standard exchange argument.}
+\end{question}
+
+\begin{solution}
+Solution to the problem starts here.
+\end{solution}
+\end{document}

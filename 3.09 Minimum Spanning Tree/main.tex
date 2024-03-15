@@ -1,0 +1,40 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E, w)$ be an undirected and weighted graph, where $w(e) > 0$ is an injective weight function (i.e. all edge weights are unique). You are given that a particular edge $e \in E$ has its weight modified, and are asked to find the new minimum spanning tree. Of course, you {\em could} just recompute the minimum spanning tree but that's boring! We want to do something more clever. In all four cases, assume you are given the actual minimum spanning tree $T$ in advance.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Suppose that the edge $e \in T$ has its weight decreased. Explain why $T$ is still the minimum spanning tree.
+
+    {\bfseries Hint.} {\em Is this obvious?}
+
+    \item Suppose that the edge $e \not\in T$ has its weight increased. Explain why $T$ is still the minimum spanning tree.
+
+    {\bfseries Note.} {\em The argument is obvious because all of the edge weights are unique... a more subtle argument needs to be made if the edge weights are not necessarily unique.}
+
+    \item Suppose that the edge $e \in T$ has its weight increased. Describe an $O(m + n)$ algorithm to compute the new minimum spanning tree.
+
+    \item Suppose that the edge $e \not\in T$ has its weight decreased. Describe an $O(m)$ algorithm to compute the new minimum spanning tree.
+
+    {\bfseries Hint.} {\em Either $e$ belongs in the new MST or $e$ doesn't...}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) goes here.
+
+    \item Solution to part (b) goes here.
+
+    \item Solution to part (c) goes here.
+    
+    \item Solution to part (d) goes here.
+\end{enumerate}
+\end{solution}
+\end{document}
