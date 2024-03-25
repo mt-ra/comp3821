@@ -28,13 +28,93 @@ Let $G = (V, E, w)$ be an undirected and weighted graph, where $w(e) > 0$ is an 
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here.
+    \item Suppose the weight of the edge was decreased by $x> 0$. 
+    All spanning trees containing $e$ will have their weight decreased by $x$, 
+    and all spanning trees not containing $e$ will have their weight unaffected.
+    $T$ contains $e$ so it is one of the spanning trees whos weight has decreased by $x$.
+    No other spanning tree had their weight decreased more than $T$ had, therefore $T$ is still the minimum spanning tree.
 
-    \item Solution to part (b) goes here.
+    \item Suppose the weight of the edge was increased by $x > 0$.
+    All spanning trees containing $e$ will have their weight increased by $x$,
+    and all spanning trees not containing $e$ will have their weight unaffected.
+    $T$ does not contain $e$ so its weight is unaffected. 
+    No other spanning tree had their weight decreased, therefore $T$ is still the minimum spanning tree.
 
-    \item Solution to part (c) goes here.
+    \item 
     
-    \item Solution to part (d) goes here.
+    \textbf{Algorithm}
+    
+    Remove $e$ from $T$ to get $T-\{e\}$. This divides $T$ into two connected components $C_1$ and $C_2$, which are spanning trees of their respective components.
+    Perform traversals of the tree from the endpoints of $e$ to determine which component each vertex is a part of.
+    Perform a linear scan through $E$ to find the the lightest edge $e'$ connecting $C_1$ and $C_2$.
+    Insert this edge into $T-\{e\}$, which should give us the new minimum spanning tree $T'=T\cup\{e'\}-\{e\}$.
+
+    \textbf{Time Complexity}
+
+    Each DFS is $O(n)$, because the number of edges in a tree is equal to the number of vertices minus 1. 
+    Then doing a scan of $E$ will be $O(m)$.
+    Therefore the time complexity is $O(m + n)$.
+
+    \textbf{Correctness}
+
+    The cycle property states that a spanning tree $S$ is a minimum spanning tree if 
+    and only if for all $e\notin S$, $e$ would be the heaviest edge in the cycle created upon adding $e$ to $S$, or in other words, $e$ is the heaviest edge in the cycle in $S\cup\{e\}$.
+
+    We want to show that $T'$ is a minimum spanning tree.
+    Let $B$ be the set of edges not in $T$ which bridge the components $C_1$ and $C_2$.
+    Similarly, let $B'$ be the set of edges not in $T'$ which bridge the components $C_1$ and $C_2$.
+    
+    Consider all edges $a\notin T'$ which connect two vertices in the same component, i.e. all edges in $(G - T') - B'$.
+    Upon adding each of these edges, the cycle that is formed does not pass through $e$, 
+    the edge that had an increase in weight.
+    Therefore if these edges obeyed the cycle property prior to the increase in the 
+    weight of $e$, then they would also satisfy the cycle property after the change.
+    
+    Now we have to show that all the edges $a\in B'$ also satisfy the cycle property after the change.
+
+    \textbf{Case 1: } $e\neq e'$
+    
+    Assume for the sake of contradiction that there exists $a\in B$ such that $a$ is not the heaviest edge in the cycle of $T'\cup\{a\}$. 
+    Let the heaviest edge in the cycle in $T'\cup\{a\}$ be $h$, hence $w(h) > w(a) > w(e')$.
+    Since the original tree $T$ was a MST, this means that $h$ cannot exist in the cycle in $T\cup\{a\}$, 
+    because otherwise $a$ would not obey the cycle property in the original tree. 
+    Therefore $h$ must exist in the cycle in $T\cup\{e'\}$.
+    However since $e'\neq e$, this means that $e'\notin T$ and thus $w(e') > w(h)$. 
+    This is a contradiction. Therefore all edges $a\notin T'$ satsify the cycle property and hence $T'$ is a MST.
+
+    \textbf{Case 2: } $e=e'$
+
+    Assume for the sake of contradiction that there exists $a\in B$ such that $a$ is not the heaviest edge in the cycle of $T'\cup\{a\}$. 
+    Therefore $a$ is also not the heaviest edge in the cycle of $T\cup\{a\}$, which is a contradiction, as this means $a$ 
+    would not satisfy the cycle property in the original tree. Therefore $T'$ is a MST.
+    
+    \item 
+
+    \textbf{Algorithm}
+
+    Insert $e$ into $T$. Now there is a cycle in $T\cup \{e\}$, which can be found with a DFS on $T\cup\{e\}$ starting on $e$. 
+    If an endpoint of $e$ is seen as a neighbour, then a cycle is found, since we know this cycle must have $e$ in it.
+    At this point, the DFS stack will contain all vertices in the cycle.
+    Remove the edge $h$ in the cycle with greatest weight by scanning through the DFS stack to find the new tree $T'$.
+
+    \textbf{Time Complexity}
+
+    The DFS on $T\cup\{e\}$ starting at $e$ will take $O(n)$ time as the number of edges is equal to the number of vertices.
+
+    \textbf{Correctness}
+
+    Again we want to show that all edges $a\notin T'$ satisfy the cycle property.
+    Consider the edges $a\notin T'$ such that the cycle in $T\cup\{a\}$ does not contain $h$.
+    For each $a$, the cycle in $T'\cup\{a\}$ is the same as the cycle in $T\cup\{a\}$,
+    therefore this cycle is unaffected by the updated weight and hence $a$ still satisfies the cycle property.
+    Now consider the edges $a\notin T'$ such that the cycle in $T\cup\{a\}$ contains $h$.
+    The cycle in $T'\cup\{a\}$ is equal to the cycle in $T\cup\{a\}$ union with the cycle in $T\cup\{e\}$ minus $\{h\}$.
+    Since $a$ obeyed the cycle property in the old graph, $w(a)>w(h)$, and hence the weight of $a$ 
+    will also be greater than the weight of all other edges in the cycle, since $h$ was defined as the 
+    edge in the cycle with the largest weight.
+    Therefore all edges in $a\notin T'$ satisfy the cycle property, and hence $T'$ is a MST.
+
+
 \end{enumerate}
 \end{solution}
 \end{document}
