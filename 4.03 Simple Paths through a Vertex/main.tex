@@ -1,0 +1,44 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an {\em undirected} graph, and let $u, v, w \in V$ be three distinct vertices. Describe an $O(m)$ algorithm to determine whether there exist a simple path from $u$ to $v$ passing through $w$.
+
+{\bfseries Hint.} {\em Reduce this to a problem you have previously seen, maybe in lectures...}
+
+{\bfseries Note.} {\em The fact that $G$ is {\bfseries undirected} makes the problem easy. The problem would be computationally difficult if $G$ was directed.}
+\end{question}
+
+\begin{solution}
+    The question is equivalent to finding if there exists a simple path from $u$ to $w$ and a 
+    simple path from $v$ to $w$ such that these paths don't have any vertices in common.
+    We can view this as a max-flow problem, where $u, v$ are sources, and $w$ is the sink, 
+    where all intermediate vertices have a capacity of 1. These two simple paths exist if and only if 
+    a flow of at least 2 is achievable.
+
+    For all vertices $a\in V$ which aren't $u,v,w$, divide it into $a_{in}$ and $a_{out}$, 
+    where the capacity of the edge $(a_{in}, a{out})$ is 1.
+    \begin{itemize}
+    \item For all undirected edges $(a,b)\in E$ which are not adjacent to $u,v,w$,
+    represent this as the edges in the flow network $(a_{out}, b_{in})$ and $(b_{out}, a_{in})$,
+    each with a capacity of 1. 
+    \item For each of $u,v$, construct an edge with capacity 1 
+    from the source to the ``in'' part of each neighbouring vertex. 
+    \item For each neighbouring vertex of $w$, 
+    construct an edge from its ``out'' part, to $w$ with capacity 1.
+    \item Make a supersource with edges of capacity 1 leading into $u$ and $v$.
+    \end{itemize}
+
+    The number of vertices in this flow network is on the same order as the number of vertices in $G$,
+    likewise with the number of edges. Constructing the flow networks takes $O(m + n)$ time, 
+    but in any sensible problem $m > n$, so this takes $O(m)$ time.
+    
+    Applying the Ford-Fulkerson algorithm  on this flow network takes a time of $O(m|f|)$, 
+    but the flow is limited to $2$, so this is just $O(m)$.
+\end{solution}
+\end{document}

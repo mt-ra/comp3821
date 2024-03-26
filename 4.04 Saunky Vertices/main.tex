@@ -1,0 +1,28 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $F = (V, E, s, t, w)$ be an $(s, t)$-flow network. In this problem, our task is to be able to classify vertices in $V$ by a special kind of property that we will define.
+
+\begin{itemize}
+    \item A vertex $v$ is {\em saucy} if $v$ appears on the source side of {\em every} minimum cut; that is, if $(S, T)$ is a minimum cut of $F$, then $v \in S$.
+
+    \item A vertex $v$ is {\em sinky} if $v$ appears on the sink side of {\em every} minimum cut; that is, if $(S, T)$ is a minimum cut of $F$, then $v \in T$.
+
+    \item A vertex $v$ is {\em saunky} if $v$ is neither saucy nor sinky. In other words, there exist at least one minimum cut $(S, T)$ for which $v \in T$ and there exist at least one minimum cut $(S', T')$ for which $v \in S'$.
+\end{itemize}
+
+Describe an $O(mn^2)$ algorithm to classify each vertex as either saucy, sinky, or saunky.
+
+{\bfseries Note.} {\em There can exist exponentially many minimum cuts in a flow network, so do not try and enumerate over all possible minimum cuts.}
+\end{question}
+
+\begin{solution}
+Solution goes here...
+\end{solution}
+\end{document}
