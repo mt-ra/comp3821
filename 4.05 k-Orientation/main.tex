@@ -1,0 +1,62 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected graph. A {\em $k$-orientation} assigns each edge a direction such that every vertex of $G$ has {\em at most} $k$ incoming edges. Describe an $O(m^2 \log n)$ algorithm to find the smallest $k$ for which $G$ has a $k$-orientation.
+
+For example, the cube graph should return $2$, as shown below.
+
+\begin{center}
+    \begin{tikzpicture}
+        \node[circle, very thick, draw] (a) {};
+        \node[circle, very thick, draw, right = 2.5cm of a] (b) {};
+        \node[circle, very thick, draw, below = 2.5cm of b] (c) {};
+        \node[circle, very thick, draw, left = 2.5cm of c] (d) {};
+
+        \node[circle, very thick, draw, above right = 1cm and 1cm of a] (e) {};
+        \node[circle, very thick, draw, above right = 1cm and 1cm of b] (f) {};
+        \node[circle, very thick, draw, above right = 1cm and 1cm of c] (g) {};
+        \node[circle, very thick, draw, above right = 1cm and 1cm of d] (h) {};
+
+        \draw[very thick] (a) -- (b) -- (c) -- (d) -- (a);
+        \draw[very thick] (e) -- (f) -- (g) -- (h) -- (e);
+        \draw[very thick] (a) -- (e);
+        \draw[very thick] (b) -- (f);
+        \draw[very thick] (c) -- (g);
+        \draw[very thick] (d) -- (h);
+
+        \node[circle, very thick, draw, right = 3.5cm of b] (i) {};
+        \node[circle, very thick, draw, right = 2.5cm of i] (j) {};
+        \node[circle, very thick, draw, below = 2.5cm of j] (k) {};
+        \node[circle, very thick, draw, left = 2.5cm of k] (l) {};
+
+        \node[circle, very thick, draw, above right = 1cm and 1cm of i] (m) {};
+        \node[circle, very thick, draw, above right = 1cm and 1cm of j] (n) {};
+        \node[circle, very thick, draw, above right = 1cm and 1cm of k] (o) {};
+        \node[circle, very thick, draw, above right = 1cm and 1cm of l] (p) {};
+
+        \draw[very thick, ->] (i) -- (j);
+        \draw[very thick, ->] (j) -- (n);
+        \draw[very thick, ->] (n) -- (m);
+        \draw[very thick, ->] (m) -- (p);
+        \draw[very thick, ->] (p) -- (l);
+        \draw[very thick, ->] (l) -- (k);
+        \draw[very thick, ->] (k) -- (j);
+        \draw[very thick, ->] (i) -- (m);
+        \draw[very thick, ->] (n) -- (o);
+        \draw[very thick, ->] (o) -- (p);
+        \draw[very thick, ->] (k) -- (o);
+        \draw[very thick, ->] (l) -- (i);
+    \end{tikzpicture}
+\end{center}
+\end{question}
+
+\begin{solution}
+Solution goes here...
+\end{solution}
+\end{document}

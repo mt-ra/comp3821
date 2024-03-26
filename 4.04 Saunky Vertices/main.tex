@@ -23,6 +23,47 @@ Describe an $O(mn^2)$ algorithm to classify each vertex as either saucy, sinky, 
 \end{question}
 
 \begin{solution}
-Solution goes here...
+
+Let $f$ be a max flow.
+For all minimum cuts $(S,T)$, $f$ will saturate all edges from $S$ to $T$, 
+and there will be no flow across any edges from $T$ to $S$. 
+The converse is true, where if there exists a cut $(S,T)$ such that $f$
+saturates all edges from $S$ to $T$, and does not have flow across edges from $T$ to $S$,
+then the $c(S,T)=|f|$ and hence $(S,T)$ is a minimum cut.
+In other words, $(S, T)$ is a minimum cut if and only if there doesn't exist an edge from $S$ to $T$
+in the residual graph when the flow is $f$.
+
+Firstly, we want to show that the intersection of two minimum cuts on the source side is also a minimum cut.
+In other words we want to show that if $(S_1, T_1)$ and $(S_2, T_2)$ are minimum cuts,
+then $(S_1\cap S_2, T_1 \cup T_2)$ is also a minimum cut.
+The reason why I am calling it the intersection is because you can represent a cut with just the source-side set $S$,
+because $T$ is just $V - S$.
+
+Now let $(S_1, T_1)$ and $(S_2, T_2)$ be two minimum cuts.
+Therefore there are no residual edges from $S_1$ to $T_1$, nor are there any residual edges from $S_2$ to $T_2$.
+All edges from $S_1\cap S_2$ to $T_1\cup T_2$ are either going from $S_1$ to $T_1$, or from $S_2$ to $T_2$, or both at the same time.
+In any case, these edges cannot exist on the residual graph. 
+Therefore $(S_1\cap S_2, T_1\cup T_2)$ is also a minimum cut.
+
+Secondly, we want to show that the union $(S_1\cup S_2, T_1 \cap T_2)$ of two minimum cuts $(S_1, T_1), (S_2, T_2)$ on the source side is also a minimum cut.
+We can make a similar argument where all edges coming from somewhere else into $T_1\cap T_2$ is either coming from 
+$S_1$, or $S_2$, or both. Therefore the cut $(S_1\cup S_2, T_1\cap T_2)$ is also a minimum cut.
+
+Let $I$ be the intersection of all minimum cuts, and $U$ be the union of all minimum cuts. 
+Note that both are minimum cuts, $I$ being the minimum cut with the least number of vertices on the source side,
+and $U$ being the minimum cut with the most number of vertices on the source side.
+All vertices in $I$ are saucy, all vertices in $U - I$ are saunky, and all vertices in $V - U$ are sinky.
+
+First we want to find a max flow $f$. We can do this with Dinic's algorithm, taking $O(mn^2)$ time.
+We can find $I$ by performing a BFS on the residual graph from the source. 
+Each edge reachable by the BFS is in $I$.
+We can find $U$ by performing a BFS on the residual graph from the sink, but with all edges reversed.
+Each edge reachable by this BFS is in $U$.
+Both of these searches take $O(m + n)\subset O(mn^2)$ time.
+
+Finally you can look through all the vertices, for each one determining if it is in $I$, $U-I$ or $V-U$.
+This takes $O(n)$ time. Therefore we can classify all the vertices in $O(mn^2)$ time.
+
+
 \end{solution}
 \end{document}
