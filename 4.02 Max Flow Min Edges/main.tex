@@ -1,0 +1,75 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $F$ be a flow network with integer capacities. Your task is to return the minimum cut with the smallest number of edges that cross the cut.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Consider the new flow network $\hat F$, defined by the new capacity function \[\hat c(x \to y) = c(x \to y) \cdot \left(m + 1\right) + 1,\] where $m$ denotes the number of edges in $F$. Show that if $(S, T)$ is {\em not} a minimum cut of $F$, then $(S, T)$ cannot be a minimum cut of $\hat F$.
+    
+    {\em This shows that any minimum cut of $\hat F$ must be a minimum cut of $F$.}
+
+    \item Show that the minimum cut of $F$ with the minimum number of edges will have the lowest cut capacity in $\hat F$.
+
+    {\em Hence, the minimum cut of $\hat F$ will be the minimum cut with the smallest number of edges that cross the cut.}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item If $(S,T)$ is not a minimum cut of $F$, then there exists another cut $(S', T')$ such that
+    $$c(S',T')<c(S,T).$$
+    Let $C$ be the set of edges $(u,v)\in E$ such that $u\in S$ and $v\in T$. 
+    In other words, $C$ is the set of edges that cross the cut.
+    Similarly, let $C'$ be the set of edges $(u,v)\in E$ such that $u\in S'$ and $v\in T'$.
+    By using the definition of cut capacity,
+    $$\sum_{(u,v)\in C'} c(u\to v) < \sum_{(u,v)\in C} c(u\to v).$$
+    However, since all capacities are integer values, we can strengthen this inequality,
+    $$1+\sum_{(u,v)\in C'} c(u\to v) \leq \sum_{(u,v)\in C} c(u\to v).$$
+    Multiplying both sides by $(m + 1)$ and then rearranging gives
+    \begin{align*}
+        (m+1)\left(1+\sum_{(u,v)\in C'} c(u\to v)\right) &\leq (m+1)\sum_{(u,v)\in C} c(u\to v)\\
+        m+1+\sum_{(u,v)\in C'} (m+1)\cdot c(u\to v) &\leq \sum_{(u,v)\in C} (m+1)\cdot c(u\to v)
+    \end{align*}
+    Since $C, C'\subseteq E$, this means $0\leq|C|,|C'|\leq m$. Therefore $|C'|-|C|\leq m$.
+    Substituting this into the inequality gives
+    \begin{align*}
+        |C'|-|C|+1+\sum_{(u,v)\in C'} (m+1)\cdot c(u\to v) &\leq \sum_{(u,v)\in C} (m+1)\cdot c(u\to v)\\
+        |C'|+1+\sum_{(u,v)\in C'} (m+1)\cdot c(u\to v) &\leq |C|+\sum_{(u,v)\in C} (m+1)\cdot c(u\to v)\\
+        1+\sum_{(u,v)\in C'} ((m+1)\cdot c(u\to v)+1) &\leq \sum_{(u,v)\in C} ((m+1)\cdot c(u\to v)+1)\\
+        \sum_{(u,v)\in C'} \hat{c}(u\to v) &<\sum_{(u,v)\in C}\hat{c}(u\to v)\\
+        \hat{c}(S',T')&<\hat{c}(S,T).
+    \end{align*}
+    Therefore $(S',T')$ also has a smaller capacity than $(S,T)$ in $\hat{F}$. Therefore if $(S,T)$ is not a minimum
+    cut in $F$, then it is also not a minimum cut in $\hat{F}$.
+    
+    \item Let $(S,T)$ be a minimum cut on $\hat{F}$. From part (a), $(S,T)$ is also a minimum cut on $F$.
+    The capacity $\hat{c}(S,T)$ of a cut $(S,T)$ on $\hat{F}$ can be written as
+    \begin{align*}
+        \hat{c}(S,T) &= \sum_{(u,v)\in C}\hat{c}(u\to v)\\
+        &= \sum_{(u,v)\in C} ((m+1)\cdot c(u\to v)+1)\\
+        &= |C| + (m+1)\sum_{(u,v)\in C}c(u\to v)\\
+        \hat{c}(S,T) &= |C| + (m+1)\cdot c(S,T)
+    \end{align*}
+
+    Since $(S, T)$ is a minimum cut on $F$, the value of $c(S,T)$ is constant no matter what minimum cut we choose.
+    Assume for the sake of contradiction that there did exist an alternate cut $(S',T')$ which was minimal on $F$, 
+    such that $|C'|<|C|$. Since both cuts are minimal on $F$, their capacities $c(S,T)$ and $c(S',T')$ are equal.
+    \begin{align*}
+        |C'|&< |C|\\
+        |C'|+(m+1)\cdot c(S',T') &< |C|+(m+1)\cdot c(S,T)\\
+        \hat{c}(S',T')&< \hat{c}(S,T)
+    \end{align*}
+    which is a contradiction, since $(S,T)$ was defined to be the minimum cut of $\hat{F}$.
+
+    Therefore $(S,T)$ is the minimum cut on $F$ with the least number of edges crossing the cut.
+
+
+\end{enumerate}
+\end{solution}
+\end{document}

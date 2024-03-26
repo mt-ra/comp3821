@@ -1,0 +1,35 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $F = (V, E, s, t, w)$ be an $(s, t)$-flow network, and let $f : E \to \mathbb Z^+ \cup \{0\}$ be a flow in $F$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Describe a linear-time algorithm to determine if $f$ is a {\em maximum flow}.
+    \item Describe a linear-time algorithm to determine if $f$ is the {\em unique} maximum flow.
+
+    {\bfseries Note.} {\em You may assume that the flow networks are given without anti-parallel edges. This sidesteps some important technical issues.}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Check if there exists a path in the residual graph from $s$ to $t$.
+    Constructing the residual graph takes $O(V + E)$ time, and then performing the BFS 
+    to find the path from $s$ to $t$ takes $O(V+E)$ time so this algorithm is linear-time.
+
+    \item First, check if $f$ is a maximum flow. 
+    Then check if there exists a cycle in the residual graph.
+    If such a cycle exists, then augmenting $f$ along this cycle would result 
+    in a new flow with the same magnitude. If no cycle exists, then $f$ is the unique maximum flow.
+    Checking if $f$ is a maximum flow is $O(V+E)$, and then performing a DFS 
+    for cycle checking would also be $O(V+E)$, and therefore this is a linear-time algorithm.
+
+\end{enumerate}
+\end{solution}
+\end{document}
