@@ -1,0 +1,314 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V_1 \cup V_2, E)$ be a bipartite graph, where $\lvert V_1 \rvert = \lvert V_2 \rvert = n$ and $\lvert E \rvert = m$. Let the vertices of $V_1$ be denoted by $v_1, \dots, v_n$ and let the vertices of $V_2$ be denoted by $w_1, \dots, w_n$. A matching $M$ is {\em planar} if every pair of edges in $M$ do not cross. More formally, all pair of edges $(v_i, w_j)$ and $(v_{i'}, w_{j'})$ in $M$ satisfy the requirement that $i < i'$ if and only if $j < j'$.
+
+Describe an $O(m^{5/2})$ algorithm that returns the minimum number of planar matchings $M_1, \dots, M_k$ such that each edge in $E$ lies in {\em exactly} one matching $M_i$.
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.7}{\begin{tikzpicture}
+        % % V1
+        % \node[draw, circle] (a1) {};
+        % \node[draw, circle, below = 0.25cm of a1] (b1) {};
+        % \node[draw, circle, below = 0.25cm of b1] (c1) {};
+        % \node[draw, circle, below = 0.25cm of c1] (d1) {};
+        % \node[draw, circle, below = 0.25cm of d1] (e1) {};
+        % \node[draw, circle, below = 0.25cm of e1] (f1) {};
+        % \node[draw, circle, below = 0.25cm of f1] (g1) {};
+
+        % % V2
+        % \node[draw, circle, right = 1.5cm of a1] (a2) {};
+        % \node[draw, circle, below = 0.25cm of a2] (b2) {};
+        % \node[draw, circle, below = 0.25cm of b2] (c2) {};
+        % \node[draw, circle, below = 0.25cm of c2] (d2) {};
+        % \node[draw, circle, below = 0.25cm of d2] (e2) {};
+        % \node[draw, circle, below = 0.25cm of e2] (f2) {};
+        % \node[draw, circle, below = 0.25cm of f2] (g2) {};
+
+        % % draw edges
+        % \draw (a1) -- (a2);
+        % \draw (a1) -- (b2);
+        % \draw (a1) -- (c2);
+        % \draw (b1) -- (a2);
+        % \draw (b1) -- (c2);
+        % \draw (b1) -- (d2);
+        % \draw (c1) -- (a2);
+        % \draw (c1) -- (f2);
+        % \draw (d1) -- (b2);
+        % \draw (d1) -- (e2);
+        % \draw (d1) -- (g2);
+        % \draw (e1) -- (f2);
+        % \draw (f1) -- (d2);
+        % \draw (f1) -- (f2);
+        % \draw (g1) -- (e2);
+        % \draw (g1) -- (f2);
+        % \draw (g1) -- (g2);
+
+        % V1
+        \node[draw, circle] (a3) {};
+        \node[draw, circle, below = 0.25cm of a3] (b3) {};
+        \node[draw, circle, below = 0.25cm of b3] (c3) {};
+        \node[draw, circle, below = 0.25cm of c3] (d3) {};
+        \node[draw, circle, below = 0.25cm of d3] (e3) {};
+        \node[draw, circle, below = 0.25cm of e3] (f3) {};
+        \node[draw, circle, below = 0.25cm of f3] (g3) {};
+
+        % V2
+        \node[draw, circle, right = 1.5cm of a3] (a4) {};
+        \node[draw, circle, below = 0.25cm of a4] (b4) {};
+        \node[draw, circle, below = 0.25cm of b4] (c4) {};
+        \node[draw, circle, below = 0.25cm of c4] (d4) {};
+        \node[draw, circle, below = 0.25cm of d4] (e4) {};
+        \node[draw, circle, below = 0.25cm of e4] (f4) {};
+        \node[draw, circle, below = 0.25cm of f4] (g4) {};
+
+        % draw edges
+        \draw[very thick, orange!70!black] (a3) -- (a4);
+        \draw[dashed, opacity = 0.4, blue] (a3) -- (b4);
+        \draw[dashed, opacity = 0.4, green!60!black] (a3) -- (c4);
+        \draw[dashed, opacity = 0.4, red] (b3) -- (a4);
+        \draw[dashed, opacity = 0.4, blue] (b3) -- (c4);
+        \draw[very thick, orange!70!black] (b3) -- (d4);
+        \draw[dashed, opacity = 0.4, gray!60!black] (c3) -- (a4);
+        \draw[dashed, opacity = 0.4, blue] (c3) -- (f4);
+        \draw[dashed, opacity = 0.4, red] (d3) -- (b4);
+        \draw[very thick, orange!70!black] (d3) -- (e4);
+        \draw[dashed, opacity = 0.4, blue] (d3) -- (g4);
+        \draw[very thick, orange!70!black] (e3) -- (f4);
+        \draw[dashed, opacity = 0.4, green!60!black] (f3) -- (d4);
+        \draw[dashed, opacity = 0.4, red] (f3) -- (f4);
+        \draw[dashed, opacity = 0.4, green!60!black] (g3) -- (e4);
+        \draw[dashed, opacity = 0.4, gray!60!black] (g3) -- (f4);
+        \draw[very thick, orange!70!black] (g3) -- (g4);
+
+        % V1
+        \node[draw, circle, right = 0.25cm of a4] (a5) {};
+        \node[draw, circle, below = 0.25cm of a5] (b5) {};
+        \node[draw, circle, below = 0.25cm of b5] (c5) {};
+        \node[draw, circle, below = 0.25cm of c5] (d5) {};
+        \node[draw, circle, below = 0.25cm of d5] (e5) {};
+        \node[draw, circle, below = 0.25cm of e5] (f5) {};
+        \node[draw, circle, below = 0.25cm of f5] (g5) {};
+
+        % V2
+        \node[draw, circle, right = 1.5cm of a5] (a6) {};
+        \node[draw, circle, below = 0.25cm of a6] (b6) {};
+        \node[draw, circle, below = 0.25cm of b6] (c6) {};
+        \node[draw, circle, below = 0.25cm of c6] (d6) {};
+        \node[draw, circle, below = 0.25cm of d6] (e6) {};
+        \node[draw, circle, below = 0.25cm of e6] (f6) {};
+        \node[draw, circle, below = 0.25cm of f6] (g6) {};
+
+        % draw edges
+        \draw[dashed, opacity = 0.4, orange!70!black] (a5) -- (a6);
+        \draw[very thick, blue] (a5) -- (b6);
+        \draw[dashed, opacity = 0.4, green!60!black] (a5) -- (c6);
+        \draw[dashed, opacity = 0.4, red] (b5) -- (a6);
+        \draw[very thick, blue] (b5) -- (c6);
+        \draw[dashed, opacity = 0.4, orange!70!black!70!black] (b5) -- (d6);
+        \draw[dashed, opacity = 0.4, gray!60!black] (c5) -- (a6);
+        \draw[very thick, blue] (c5) -- (f6);
+        \draw[dashed, opacity = 0.4, red] (d5) -- (b6);
+        \draw[dashed, opacity = 0.4, orange!70!black] (d5) -- (e6);
+        \draw[very thick, blue] (d5) -- (g6);
+        \draw[dashed, opacity = 0.4, orange!70!black] (e5) -- (f6);
+        \draw[dashed, opacity = 0.4, green!60!black] (f5) -- (d6);
+        \draw[dashed, opacity = 0.4, red] (f5) -- (f6);
+        \draw[dashed, opacity = 0.4, green!60!black] (g5) -- (e6);
+        \draw[dashed, opacity = 0.4, gray!60!black] (g5) -- (f6);
+        \draw[dashed, opacity = 0.4, orange!70!black] (g5) -- (g6);
+
+        % V1
+        \node[draw, circle, right = 0.25cm of a6] (a7) {};
+        \node[draw, circle, below = 0.25cm of a7] (b7) {};
+        \node[draw, circle, below = 0.25cm of b7] (c7) {};
+        \node[draw, circle, below = 0.25cm of c7] (d7) {};
+        \node[draw, circle, below = 0.25cm of d7] (e7) {};
+        \node[draw, circle, below = 0.25cm of e7] (f7) {};
+        \node[draw, circle, below = 0.25cm of f7] (g7) {};
+
+        % V2
+        \node[draw, circle, right = 1.5cm of a7] (a8) {};
+        \node[draw, circle, below = 0.25cm of a8] (b8) {};
+        \node[draw, circle, below = 0.25cm of b8] (c8) {};
+        \node[draw, circle, below = 0.25cm of c8] (d8) {};
+        \node[draw, circle, below = 0.25cm of d8] (e8) {};
+        \node[draw, circle, below = 0.25cm of e8] (f8) {};
+        \node[draw, circle, below = 0.25cm of f8] (g8) {};
+
+        % draw edges
+        \draw[dashed, opacity = 0.4, orange!70!black] (a7) -- (a8);
+        \draw[dashed, opacity = 0.4, blue] (a7) -- (b8);
+        \draw[very thick, green!60!black] (a7) -- (c8);
+        \draw[dashed, opacity = 0.4, red] (b7) -- (a8);
+        \draw[dashed, opacity = 0.4, blue] (b7) -- (c8);
+        \draw[dashed, opacity = 0.4, orange!70!black] (b7) -- (d8);
+        \draw[dashed, opacity = 0.4, gray!60!black] (c7) -- (a8);
+        \draw[dashed, opacity = 0.4, blue] (c7) -- (f8);
+        \draw[dashed, opacity = 0.4, red] (d7) -- (b8);
+        \draw[dashed, opacity = 0.4, orange!70!black] (d7) -- (e8);
+        \draw[dashed, opacity = 0.4, blue] (d7) -- (g8);
+        \draw[dashed, opacity = 0.4, orange!70!black] (e7) -- (f8);
+        \draw[very thick, green!60!black] (f7) -- (d8);
+        \draw[dashed, opacity = 0.4, red] (f7) -- (f8);
+        \draw[very thick, green!60!black] (g7) -- (e8);
+        \draw[dashed, opacity = 0.4, gray!60!black] (g7) -- (f8);
+        \draw[dashed, opacity = 0.4, orange!70!black] (g7) -- (g8);
+
+        % V1
+        \node[draw, circle, right = 0.25cm of a8] (a9) {};
+        \node[draw, circle, below = 0.25cm of a9] (b9) {};
+        \node[draw, circle, below = 0.25cm of b9] (c9) {};
+        \node[draw, circle, below = 0.25cm of c9] (d9) {};
+        \node[draw, circle, below = 0.25cm of d9] (e9) {};
+        \node[draw, circle, below = 0.25cm of e9] (f9) {};
+        \node[draw, circle, below = 0.25cm of f9] (g9) {};
+
+        % V2
+        \node[draw, circle, right = 1.5cm of a9] (a10) {};
+        \node[draw, circle, below = 0.25cm of a10] (b10) {};
+        \node[draw, circle, below = 0.25cm of b10] (c10) {};
+        \node[draw, circle, below = 0.25cm of c10] (d10) {};
+        \node[draw, circle, below = 0.25cm of d10] (e10) {};
+        \node[draw, circle, below = 0.25cm of e10] (f10) {};
+        \node[draw, circle, below = 0.25cm of f10] (g10) {};
+
+        % draw edges
+        \draw[dashed, opacity = 0.4, orange!70!black] (a9) -- (a10);
+        \draw[dashed, opacity = 0.4, blue] (a9) -- (b10);
+        \draw[dashed, opacity = 0.4, green!60!black] (a9) -- (c10);
+        \draw[very thick, red] (b9) -- (a10);
+        \draw[dashed, opacity = 0.4, blue] (b9) -- (c10);
+        \draw[dashed, opacity = 0.4, orange!70!black] (b9) -- (d10);
+        \draw[dashed, opacity = 0.4, orange!70!black] (c9) -- (a10);
+        \draw[dashed, opacity = 0.4, blue] (c9) -- (f10);
+        \draw[very thick, red] (d9) -- (b10);
+        \draw[dashed, opacity = 0.4, orange!70!black] (d9) -- (e10);
+        \draw[dashed, opacity = 0.4, blue] (d9) -- (g10);
+        \draw[dashed, opacity = 0.4, orange!70!black] (e9) -- (f10);
+        \draw[dashed, opacity = 0.4, green!60!black] (f9) -- (d10);
+        \draw[very thick, red] (f9) -- (f10);
+        \draw[dashed, opacity = 0.4, green!60!black] (g9) -- (e10);
+        \draw[dashed, opacity = 0.4, gray!60!black] (g9) -- (f10);
+        \draw[dashed, opacity = 0.4, orange!70!black] (g9) -- (g10);
+
+        % V1
+        \node[draw, circle, right = 0.25cm of a10] (a11) {};
+        \node[draw, circle, below = 0.25cm of a11] (b11) {};
+        \node[draw, circle, below = 0.25cm of b11] (c11) {};
+        \node[draw, circle, below = 0.25cm of c11] (d11) {};
+        \node[draw, circle, below = 0.25cm of d11] (e11) {};
+        \node[draw, circle, below = 0.25cm of e11] (f11) {};
+        \node[draw, circle, below = 0.25cm of f11] (g11) {};
+
+        % V2
+        \node[draw, circle, right = 1.5cm of a11] (a12) {};
+        \node[draw, circle, below = 0.25cm of a12] (b12) {};
+        \node[draw, circle, below = 0.25cm of b12] (c12) {};
+        \node[draw, circle, below = 0.25cm of c12] (d12) {};
+        \node[draw, circle, below = 0.25cm of d12] (e12) {};
+        \node[draw, circle, below = 0.25cm of e12] (f12) {};
+        \node[draw, circle, below = 0.25cm of f12] (g12) {};
+
+        % draw edges
+        \draw[dashed, opacity = 0.4, orange!70!black] (a11) -- (a12);
+        \draw[dashed, opacity = 0.4, blue] (a11) -- (b12);
+        \draw[dashed, opacity = 0.4, green!60!black] (a11) -- (c12);
+        \draw[dashed, opacity = 0.4, red] (b11) -- (a12);
+        \draw[dashed, opacity = 0.4, blue] (b11) -- (c12);
+        \draw[dashed, opacity = 0.4, orange!70!black] (b11) -- (d12);
+        \draw[very thick, gray!60!black] (c11) -- (a12);
+        \draw[dashed, opacity = 0.4, blue] (c11) -- (f12);
+        \draw[dashed, opacity = 0.4, red] (d11) -- (b12);
+        \draw[dashed, opacity = 0.4, orange!70!black] (d11) -- (e12);
+        \draw[dashed, opacity = 0.4, blue] (d11) -- (g12);
+        \draw[dashed, opacity = 0.4, orange!70!black] (e11) -- (f12);
+        \draw[dashed, opacity = 0.4, green!60!black] (f11) -- (d12);
+        \draw[dashed, opacity = 0.4, red] (f11) -- (f12);
+        \draw[dashed, opacity = 0.4, green!60!black] (g11) -- (e12);
+        \draw[very thick, gray!60!black] (g11) -- (f12);
+        \draw[dashed, opacity = 0.4, orange!70!black] (g11) -- (g12);
+
+        % V1
+        \node[draw, circle, right = 2cm of a12] (a13) {};
+        \node[draw, circle, below = 0.25cm of a13] (b13) {};
+        \node[draw, circle, below = 0.25cm of b13] (c13) {};
+        \node[draw, circle, below = 0.25cm of c13] (d13) {};
+        \node[draw, circle, below = 0.25cm of d13] (e13) {};
+        \node[draw, circle, below = 0.25cm of e13] (f13) {};
+        \node[draw, circle, below = 0.25cm of f13] (g13) {};
+
+        % V2
+        \node[draw, circle, right = 1.5cm of a13] (a14) {};
+        \node[draw, circle, below = 0.25cm of a14] (b14) {};
+        \node[draw, circle, below = 0.25cm of b14] (c14) {};
+        \node[draw, circle, below = 0.25cm of c14] (d14) {};
+        \node[draw, circle, below = 0.25cm of d14] (e14) {};
+        \node[draw, circle, below = 0.25cm of e14] (f14) {};
+        \node[draw, circle, below = 0.25cm of f14] (g14) {};
+
+        \node at (12.8, -1.75) {{\Huge$\implies$}};
+
+        % draw edges
+        \draw[very thick, opacity = 0.4, orange!70!black] (a13) -- (a14);
+        \draw[very thick, opacity = 0.4, blue] (a13) -- (b14);
+        \draw[very thick, opacity = 0.4, green!60!black] (a13) -- (c14);
+        \draw[very thick, opacity = 0.4, red] (b13) -- (a14);
+        \draw[very thick, opacity = 0.4, blue] (b13) -- (c14);
+        \draw[very thick, opacity = 0.4, orange!70!black] (b13) -- (d14);
+        \draw[very thick, opacity = 0.4, gray!60!black] (c13) -- (a14);
+        \draw[very thick, opacity = 0.4, blue] (c13) -- (f14);
+        \draw[very thick, opacity = 0.4, red] (d13) -- (b14);
+        \draw[very thick, opacity = 0.4, orange!70!black] (d13) -- (e14);
+        \draw[very thick, opacity = 0.4, blue] (d13) -- (g14);
+        \draw[very thick, opacity = 0.4, orange!70!black] (e13) -- (f14);
+        \draw[very thick, opacity = 0.4, green!60!black] (f13) -- (d14);
+        \draw[very thick, opacity = 0.4, red] (f13) -- (f14);
+        \draw[very thick, opacity = 0.4, green!60!black] (g13) -- (e14);
+        \draw[very thick, opacity = 0.4, gray!60!black] (g13) -- (f14);
+        \draw[very thick, opacity = 0.4, orange!70!black] (g13) -- (g14);
+        
+    \end{tikzpicture}}
+    \caption{{\em A collection of five planar matchings.}}
+    \label{fig:enter-label}
+\end{figure}
+
+There are at least four approaches.
+
+{\bfseries Approach 1.} {\em Reduce to a problem that you have previously seen, perhaps in the tutorials... this should have running time $O(m^{5/2})$.}
+
+{\bfseries Approach 2.} {\em Use Dilworth's theorem. Construct an appropriate poset, and use the chain-antichain duality. The minimum number of {\bfseries chains} that cover the poset should correspond to the maximum length {\bfseries antichain}. This should have running time $O(m^2)$.}
+
+{\bfseries Approach 3.} {\em Use dynamic programming and reduce to the longest decreasing subsequence problem. This should have running time $O(m\log m)$.}
+
+{\bfseries Approach 4.} {\em Use ordered dictionaries or van Emde Boas trees for the competitive programming enthusiasts. This should have running time $O(m \log\log n)$.}
+\end{question}
+
+\begin{solution}
+We will construct a poset involving the edges $E$, such that edges are comparable if and only if they do not intersect.
+For every pair of edges $(v_i, w_j)$ and $(v_{i'}, w_{j'})$, let $(v_i, w_j) \leq (v_{i'}, w_{j'})$ if and only if $i \leq i'$ and $j \leq j'$.
+This satisfies the transitive, reflexive and antisymmetric properties and the set of edges and the $\leq$ relation is a poset.
+A planar matching can be represented by a chain on this poset.
+To solve for the minimum number of matchings that cover $E$,
+we just need to find the minimum number of chains required to cover the poset.
+This problem can be solved by using the same flow network as for the proof of Dilworth's Theorem.
+
+For each $e\in E$, we represent it by two vertices $e^+$ and $e^-$. 
+Join the supersource $s$ to all `minus'-vertices, and join all `plus'-vertices to the supersink $t$.
+Now for all pairs of edges $(e_1, e_2)$ such that $e_1 < e_2$, join $e_1^+$ to $e_2^-$.
+All edges should have a capacity of one.
+Constructing this flow network takes $O(m^2)$ time, as we are scanning through all pairs of edges.
+The number of vertices in this flow network is $O(m)$ and the number of edges on this flow network is $O(m^2)$
+The minimum number of chains required to cover the poset is equal to $|E|$ minus the maximum flow through this flow network.
+The maximum flow can be solved in $O(m^2\sqrt{m})$ time using Dinic's algorithm, since this flow network represents a bipartite graph.
+
+
+\end{solution}
+\end{document}

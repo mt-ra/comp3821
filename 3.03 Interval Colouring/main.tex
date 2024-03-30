@@ -11,6 +11,21 @@ You are given a set of $n$ intervals $\mathcal I = \{I_1, \dots, I_n\}$ and $n$ 
 \end{question}
 
 \begin{solution}
-Solution to the problem starts here.
+    The overall idea is to go from left to right, only introducing new colours when 
+    there are no others available.
+    Represent each interval $I_i$ as a start event $s_i$ and an end event $e_i$.
+    The event is just a struct which holds the position, as well as a reference to the interval.
+    Sort all events by position from left to right, taking $O(n\log n)$ time.
+
+    Keep a stack of colours that are available to use.
+    Perform a sweep from left to right,
+    when a start event is encountered, colour its corresponding interval with 
+    the top colour on the stack, and pop this colour from the stack.
+    If the stack is empty, then we must introduce a new colour and place it on the stack, 
+    before popping it from the stack and colouring the interval with this colour.
+    When an end event is encountered, find the colour of its corresponding interval, 
+    and return this colour onto the stack.
+    This sweep takes $O(n)$ time. Thus the complexity of the whole algorithm is $O(n\log n)$ dominated by sorting.
+
 \end{solution}
 \end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be a {\em directed} graph with $n$ vertices and $m$ edges. Let $\mathscr C = \{C_1, \dots, C_k\}$ be a collection of disjoint cycles in $G$. We say that $\mathscr C$ is a {\em cycle covering} if every vertex $v \in V$ in $G$ is covered in {\em exactly} one cycle $C_i$. In other words, a cycle covering is a collection of disjoint cycles that cover all vertices in $G$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Let $E' \subseteq E$ be a set of edges in $G$. Prove that $E'$ forms a cycle covering if and only if every vertex has exactly one incoming edge and one outgoing edge in $E'$.
+
+    \item Describe an $O(m\sqrt n)$ algorithm to decide whether $G$ contains a cycle covering. You are not asked to return the covering (if one exists), just whether $G$ contains one.
+
+    Represent every edge
+
+    {\bfseries Hint.} {\em Use bipartite matching to check for the existence of a set of edges that satisfy the condition from part (a).}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item If a set $E'$ forms a cycle covering, then every vertex belongs to exactly one cycle. 
+    Every vertex in a cycle has an indegree and an outdegree of 1, 
+    therefore every vertex in $G$ has exactly one incoming edge and one outgoing edge in $E'$.
+
+    Conversely, if every vertex in $G$ has exactly one incoming edge and one outgoing edge $E'$, 
+    then for every starting vertex $u$, you can show that it belongs to a cycle in $E'$.
+    Note that every vertex has a single successor and a single predecessor.
+    Starting from $u$, traverse the outgoing edge of every vertex until you visit an already visited vertex $u'$.
+    If $u' \neq u$, then $u'$ has two different predecessors which is a contradiction.
+    Therefore the path from any vertex will eventually reach itself, and therefore every vertex in $G$
+    belongs in exactly one cycle.
+    
+
+    \item We will construct a bipartite graph $H$ using $G$.
+    Represent each vertex $v$ in $G$ as two vertices $v_{in}$ and $v_{out}$ in $H$.
+    Let $A$ and $B$ be the two disjoint subsets of the bipartition, 
+    with $A$ containing all the ``in'' vertices and $H$ containing all the ``out'' vertices.
+    For every edge $(a, b)$ in $E$, join $a_{out}$ with $b_{in}$ in the graph $H$.
+
+    The bipartite graph $H$ has $m$ edges and $2n$ vertices. 
+    Perform Dinic's algorithm to try find a perfect matching on $H$, taking $O(m\sqrt{n})$ time.
+    A perfect matching would mean that we can select edges such that for each vertex $v$ in $G$,
+    there is exactly one incoming edge and one outgoing edge. 
+    Therefore the bipartite graph $H$ will have a perfect match if and only if $G$ has a cycle covering.
+
+
+
+
+\end{enumerate}
+\end{solution}
+\end{document}

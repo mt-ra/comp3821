@@ -21,6 +21,24 @@ Let $P_n$ denote the set of primes in $[n]$. It is clear that $S \coloneqq \{1\}
 \end{question}
 
 \begin{solution}
-Solution to the problem starts here.
+    Let $p_i$ be the $i$-th prime number, and let $S_i$ be the set of all positive multiples of $p_i$.
+    \begin{align*}
+        S_1&=\{2, 4, 6, 8, 10, 12,\dots\}\\
+        S_2 &= \{3, 6, 9, 12, 15, 18, \dots\}\\
+        S_3 &= \{5, 10, 15, 20, 25, 30, \dots\}
+    \end{align*}
+    Suppose that $k$ is the largest integer such that $p_k\leq n$.
+    Note that all natural numbers greater than $1$ and less than $n$ are contained in the union of $S_1, S_2, \dots, S_k$.
+    The coprime subset $S$ can contain at most 1 element from each of 
+    $S_1, S_2, \dots, S_k$.
+    This is because, if two elements in $S$ were from 
+    the same $S_i$, then they would share the common factor $p_i$ which contradicts their coprimality.
+    Finally, the set $S$ can also contain the number $1$.
+    Thus the upper bound on $|S|$ is $k+1$.
+
+    The set $\{1\}\cup\{p_1, p_2,\dots, p_k\}$ satisfies the condition that every pair of elements in $S$ is coprime.
+    Furthermore it has a cardinality of $k+1$. Therefore the size of the largest subset which satsifies the conditions is $k+1$.
+    Thus $|S|$ is correct.
+
 \end{solution}
 \end{document}
