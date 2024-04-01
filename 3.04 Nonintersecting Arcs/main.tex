@@ -13,6 +13,19 @@ You are given a set of $n$ arcs on the unit circle. For a pair of arcs $a_i$ and
 \end{question}
 
 \begin{solution}
-Solution to the problem starts here.
+Let the anticlockwise direction be the positive direction.
+Sort the arcs by the position of their most anticlockwise point, in increasing order,
+starting from an arbitrary arc. This takes $O(\log n)$ time.
+
+For each of the $n$ arcs, we can consider it as a starting point in a straight line interval selection problem.
+Performing the straight line interval selection problem 
+each takes $O(n)$ time since the arcs are already sorted. 
+To do this, iterate through the array, starting at a specific arc, adding arcs when they do not intersect with the previous one,
+looping back to the beginning of the array of necessary.
+This is guaranteed to give the largest set of non-intersecting arcs, given that that specific starting arc was chosen,
+as this is just the straight line interval selection problem.
+Therefore performing this method for each of the $n$ different possible starting arcs,
+will take $O(n^2)$ time.
+    
 \end{solution}
 \end{document}

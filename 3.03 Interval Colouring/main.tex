@@ -15,7 +15,7 @@ You are given a set of $n$ intervals $\mathcal I = \{I_1, \dots, I_n\}$ and $n$ 
     there are no others available.
     Represent each interval $I_i$ as a start event $s_i$ and an end event $e_i$.
     The event is just a struct which holds the position, as well as a reference to the interval.
-    Sort all events by position from left to right, taking $O(n\log n)$ time.
+    Sort all events by position from left to right, putting ``end'' events before ``start'' events if they are tied, taking $O(n\log n)$ time.
 
     Keep a stack of colours that are available to use.
     Perform a sweep from left to right,
@@ -26,6 +26,27 @@ You are given a set of $n$ intervals $\mathcal I = \{I_1, \dots, I_n\}$ and $n$ 
     When an end event is encountered, find the colour of its corresponding interval, 
     and return this colour onto the stack.
     This sweep takes $O(n)$ time. Thus the complexity of the whole algorithm is $O(n\log n)$ dominated by sorting.
+
+    The number of colours required is at least equal to the maximum number of intervals that are overlapping at once.
+    Let this number be $x$.
+    This gives a lower bound for the number of colours required.
+
+    Our goal is to show that our greedy algorithm achieves $x$ colours.
+    Assume for the sake of contradiction that the greedy algorithm selected a total of $x'$ colours, where $x' > x$.
+    The way we defined it, new colours are only introduced when the stack of available colours is empty.
+    This means that when the $(x+1)$-th colour was introduced, the stack was empty, meaning that 
+    there were $x$ currently-used colours. This means that after the $(x+1)$-th colour is introduced,
+    the number of currently-used colours becomes $(x+1)$, meaning that the number of currently intersecting 
+    intersections is $(x+1)$. This is a contradiction, since we defined $x$ to be the maximimum number of intersections.
+
+    Therefore this greedy algorithm gives an optimal solution.
+
+
+
+
+
+
+
 
 \end{solution}
 \end{document}
