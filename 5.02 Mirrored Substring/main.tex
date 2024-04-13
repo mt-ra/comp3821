@@ -15,6 +15,40 @@ For example, consider the following string \[S = \mathsf{BOBSMAM\textcolor{red!6
 \end{question}
 
 \begin{solution}
-Solution goes here...
+
+\textbf{Subproblems}
+
+Let the string be $1$ indexed.
+For $1\leq i, j \leq n$, 
+let $P(i, j)$ be the problem of finding the length of the length of the longest 
+substring that appears both forwards and backwards in $S[i..j]$ (inclusive at both ends of the range),\
+such that the left occurence starts at $i$ and the right occurence ends at $j$,
+and there is no overlap between these substrings.
+
+\textbf{Recurrence}
+
+$$\mathrm{opt}(i,j) = \begin{cases}
+    1+\mathrm{opt}(i+1, j-1) & \text{if }A[i]=A[j]\\
+    0 &\text{otherwise}
+\end{cases}    $$
+
+\textbf{Base Cases}
+
+For all $i \geq j$, $\mathrm{opt}(i, j) = 0$.
+
+\textbf{Order of Computation}
+
+Solve the subproblems in increasing order of the difference $j-i$.
+In this way, $P(i+1, j-1)$ is guaranteed to be solved before $P(i, j)$.
+
+\textbf{Overall Answer}
+
+$$\max_{\substack{1\leq i\leq j \leq n}} \mathrm{opt}(i, j)$$
+
+\textbf{Time Complexity}
+
+There are $O(n^2)$ subproblems, each taking $O(1)$ to solve.
+Extracting the overall answer takes $O(n^2)$ time, giving a total of $O(n^2)$.
+
 \end{solution}
 \end{document}

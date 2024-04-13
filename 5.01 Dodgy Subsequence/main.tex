@@ -13,6 +13,37 @@ For example, if we have the array \[A = [3^*, 1, 4^*, 1^*, 5, 9, 2^*, 6],\] wher
 \end{question}
 
 \begin{solution}
-Solution goes here...
+
+\textbf{Subproblems}
+
+For $0\leq i \leq n$ and $0\leq j \leq k$, let $P(i,j)$ be the problem of determining
+the length of the longest increasing subsequence that contains at most $j$ dodgy elements,
+that ends at the $i$-th element. There is a dummy subproblem $P(0, j)$.
+
+\textbf{Recurrence}
+
+$$\mathrm{opt}(i,j) = \begin{cases}
+    \displaystyle 1+\max_{\substack{m < i\\A[m] < A[i]}}\mathrm{opt}(m, j-1) & \text{if }A[i]\text{ is dodgy and }j \geq 1\\
+    \displaystyle 1+\max_{\substack{m < i\\A[m] < A[i]}}\mathrm{opt}(m, j) & \text{if }A[i]\text{ is not dodgy}\\
+    0 &\text{otherwise}
+\end{cases}    $$
+
+\textbf{Base Cases}
+
+$P(0, j) = 0$ for all $j$.
+
+\textbf{Order of Computation}
+
+Solve subproblems $P(i, j)$ in increasing order of $j$, and increasing order of $i$ if $j$ is the same.
+This guarantees that all subproblems $P(m, j-1)$ and $P(m, j)$ for $m < i$ are solved before $P(i,j)$.
+
+\textbf{Overall Answer}
+
+$$\max_{\substack{1\leq i \leq n}} \mathrm{opt}(i, k)$$
+
+\textbf{Time Complexity}
+
+$O(nk)$ subproblems, each taking $O(n)$ time. Overall answer calculated in $O(n)$, for a total of $O(kn^2)$.
+
 \end{solution}
 \end{document}
