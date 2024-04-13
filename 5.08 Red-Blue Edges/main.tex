@@ -1,0 +1,32 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+We are given a directed and weighted graph $G = (V, E, w)$, where $w(e) > 0$ for each $e \in E$. Additionally, each edge is coloured either red or blue.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Let $\compproblem{onlyRedEdges}(u, v, \ell)$ denote the weight of the shortest path from $u$ to $v$ that uses {\em only} red edges and have length at most $\ell$. For a fixed pair of points $u$ and $v$, describe an $O(n^3 \log k)$ algorithm to compute $\compproblem{onlyRedEdges}(u, v, k - 1)$.
+
+    {\bfseries Hint.} {\em You should only need $O(n^2 \log k)$ subproblems.}
+
+    {\bfseries Hint 2.} {\em Alternatively... you can just apply Bellman-Ford.}
+
+    \item Hence, describe an $O(n^3 \log k)$ algorithm that returns a {\em closed walk} with the smallest weight that contains {\em at least} one blue edge and does not contain $k$ consecutive red edges.
+
+    A {\em closed walk} is a walk that starts and ends at the same vertex.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) goes here...
+
+    \item Solution to part (b) goes here...
+\end{enumerate}
+\end{solution}
+\end{document}

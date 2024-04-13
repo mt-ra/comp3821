@@ -1,0 +1,45 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Given a positive integer $n$, the {\em complexity} of $n$ is the minimum number of ones that can be used to represent $n$, using only the operations of addition and multiplication, as well as parenthesisation.
+
+For example, we have the following representations:
+\begin{align*}
+    6 &= (1 + 1 + 1) \times (1 + 1). \\
+    8 &= (1 + 1) \times (1 + 1) \times (1 + 1). \\
+    9 &= (1 + 1 + 1) \times (1 + 1 + 1). \\
+    12 &= (1 + 1 + 1 + 1) \times (1 + 1 + 1). \\
+    19 &= (1 + 1 + 1) \times (1 + 1 + 1) \times (1 + 1) + 1.
+\end{align*}
+
+The first twenty entries are given for you.
+\begin{center}
+    \begin{tabular}{c|cccccccccccccccccccc}
+        $n$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
+        \hline & 1 & 2 & 3 & 4 & 5 & 5 & 6 & 6 & 6 & 7 & 8 & 7 & 8 & 8 & 8 & 8 & 9 & 8 & 9 & 9
+    \end{tabular}
+\end{center}
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that every positive integer can be represented by a string of ones, along with addition, multiplication, and parenthesisation operations; that is, the complexity of $n$ is always finite.
+
+    \item Given a positive integer $n$, describe an $O(n^2)$ algorithm to compute the minimum number of one's (1's) using only the operations of addition and multiplication, as well as parentheses, whose expression equals $n$.
+\end{enumerate}
+
+{\bfseries Note.} {\em This is also known as the Mahler-Popken complexity. Here is the \href{https://oeis.org/A005245}{OEIS} entry.}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) goes here...
+
+    \item Solution to part (b) goes here...
+\end{enumerate}
+\end{solution}
+\end{document}

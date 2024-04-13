@@ -1,0 +1,93 @@
+\ProvidesPackage{algostyle}
+
+% PACKAGES.
+\usepackage{amsmath, amssymb, amsthm} % AMS packages.
+\usepackage{enumitem, float, geometry, graphicx, hyperref, listings, mathrsfs, mathtools, parskip, subfigure, tikz, twemojis, xcolor}
+\usepackage{XCharter} % font.
+\usepackage[ruled]{algorithm2e} % pseuodocode formatting.
+\usepackage[framemethod=tikz]{mdframed} % styling.
+
+% SPECIAL CHARACTERS.
+\usepackage[utf8]{inputenc} % Required for inputting international characters.
+\usepackage[T1]{fontenc} % Output font encoding for international characters.
+
+% TIKZ LIBRARIES.
+\usetikzlibrary{positioning, calc, shapes.geometric}
+\lstset{basicstyle=\ttfamily}
+
+% PAGE MARGINS AND LAYOUT.
+\geometry {
+    paper       = a4paper,
+    top         = 2.5cm,
+    bottom      = 3cm,
+    left        = 2.5cm,
+    right       = 2.5cm,
+    headheight  = 14pt,
+    footskip    = 1.5cm,
+    headsep     = 1.2cm
+}
+
+% COLOUR LINKS.
+\hypersetup{colorlinks = true, allcolors = blue}
+
+% DEFINITION ENVIRONMENTS.
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+% NEW COMMANDS.
+\newcommand{\compproblem}[1]{\mathsf{\textsc{#1}}}
+
+% COLOUR DEFINITIONS.
+\input{} % Insert colour file.
+
+% FRAMED BOX STYLES.
+% Question style.
+\mdfdefinestyle{question}{
+    innertopmargin      = 0.8\baselineskip,
+    innerbottommargin   = 0.8\baselineskip,
+    roundcorner         = 5pt
+}
+
+% Question environment.
+\newenvironment{question}[1][\unskip]{
+    \begin{mdframed}[style = question]
+}{
+    \end{mdframed}
+    \medskip
+}
+
+% Rubric style.
+\mdfdefinestyle{rubric}{
+    innertopmargin      = 0.8\baselineskip,
+    innerbottommargin   = 0.8\baselineskip,
+    backgroundcolor     = red!10
+}
+
+% Rubric environment.
+\newenvironment{rubric}[1][\unskip]{
+    \begin{mdframed}[style= r ubric, linecolor = red!60!black, fontcolor = red!60!black]
+    {\bfseries Rubric.}
+}{
+    \end{mdframed}
+    \medskip
+}
+
+% Solution style.
+\mdfdefinestyle{solution}{
+    innertopmargin      = 0.8\baselineskip,
+    innerbottommargin   = 0.8\baselineskip,
+    backgroundcolor     = green!10
+}
+
+% Solution environment.
+\newenvironment{solution}[1][\unskip]{
+    \begin{mdframed}[style = solution]
+    {\bfseries Solution.}
+}{
+    \end{mdframed}
+    \medskip
+}

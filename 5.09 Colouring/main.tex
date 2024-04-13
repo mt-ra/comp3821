@@ -1,0 +1,73 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected and unweighted graph. A {\em colouring} of $G$ is an assignment of vertices to colours such that no pair of adjacent vertices share the same colour. This problem is in $\mathsf{NP\text{-}C}$; however, we will come up with an exponential-time dynamic programming. We consider the $k\text{-}\compproblem{Colouring}$ problem, described below.
+
+\begin{itemize}
+    \item[] {\bfseries Instance.} An undirected and unweighted graph $G = (V, E)$.
+    \item[] {\bfseries Task.} {\em Is there a colouring of $G$ using at most $k$ colours?}
+\end{itemize}
+
+\begin{enumerate}[label = (\alph*)]
+    \item Describe a brute-force algorithm for $k\text{-}\compproblem{Colouring}$. What is the running time of such an algorithm?
+
+    \item An {\em independent set} of $G$ is a subset of vertices $S \subseteq V$ such that no pair of vertices in $S$ are adjacent. How do independent sets of $G$ relate to colour classes of $G$?
+
+    \item Prove that there exists an optimal $k$-colouring such that a colour class is a maximal independent set.
+
+    We are now ready to describe an ``efficient'' algorithm.
+
+    \item We enumerate over all subsets of $V$. For a subset $S \subseteq V$ of vertices, we define $G[S]$ to be the graph of $G$ {\em induced} by the vertex set $S$.
+    
+    \begin{enumerate}[label = (\roman*)]
+        \item Let $\compproblem{OptColour}(S)$ denote the minimum $k$ such that $G[S]$ is $k$-colourable. Explain why
+        \begin{align*}
+            \compproblem{OptColour}(S) = 1 + \min\{\compproblem{OptColour}(S \setminus I) : I \text{ is a maximal indep. set in } G[S]\}.
+        \end{align*}
+
+        \item What is a suitable base case for this problem?
+
+        \item What is the final solution, and what is the order of computation?
+
+        \item On a graph with $n$ vertices, assume that all maximal independent sets can be generated in time $O^*(3^{n/3})$. Here, $O^*(\cdot)$ omits all polynomial factors; that is, $O^*(a^n) = O(p(n) \cdot a^n)$ where $p(n)$ is a polynomial in $n$.
+
+        Show that $\compproblem{OptColour}(S)$ can be solved in time $O^*\left(3^{\lvert S \rvert /3}\right)$.
+
+        \item Show that the running time is given by $O^*\left((1 + 3^{1/3})^n\right)$. This gives an approximately $O^*(2.4423^n)$ algorithm.
+
+        {\bfseries Hint.} {\em The binomial theorem might come in handy.}
+    \end{enumerate}
+\end{enumerate}
+
+{\bfseries Note.} {\em This is the algorithm described in \href{https://www.semanticscholar.org/paper/A-Note-on-the-Complexity-of-the-Chromatic-Number-Lawler/0742e3eac4efae7db8c0ac816223e2e4c51a93f6}{[Lawler, '76]}. This was the best known algorithm until a new inclusion-exclusion algorithm was introduced in 2006 by Bj\"orklund and Husfeldt that runs in $O^*(2^n)$; this is the currently best-known algorithm.}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) goes here...
+
+    \item Solution to part (b) goes here...
+
+    \item Solution to part (c) goes here...
+
+    \item
+    \begin{enumerate}[label = (\roman*)]
+        \item Solution to part (i) goes here...
+
+        \item Solution to part (ii) goes here...
+
+        \item Solution to part (iii) goes here...
+
+        \item Solution to part (iv) goes here...
+
+        \item Solution to part (v) goes here...
+    \end{enumerate}
+\end{enumerate}
+\end{solution}
+\end{document}

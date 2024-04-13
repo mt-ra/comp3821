@@ -1,0 +1,49 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+You are given two lists of $n$ points, one list $P = [p_1, \dots, p_n]$ lies on the line $y = 0$ and the other list $Q = [q_1, \dots, q_n]$ lies on the line $y = 1$. We construct $n$ line segments by connecting $p_i$ to $q_i$ for each $i = 1, \dots, n$. You may assume that the numbers in $P$ are distinct and the numbers in $Q$ are also distinct. Describe an $O(n^2)$ algorithm to return the size of the largest subset $L$ of line segments such that no pair of line segments in $L$ intersect.
+
+For example, the following instance
+\begin{center}
+    \begin{tikzpicture}
+        % Line segments.
+        \draw[black, thick, latex-latex] (0, -0.5) -- (7, -0.5);
+        \draw[black, thick, latex-latex] (0, 1) -- (7, 1);
+    \definecolor{yellowgreen}{rgb} {0.76,0.83,0}
+
+        \node[circle, color=red!60!black, fill, inner sep = 2pt, outer sep = 0pt, label = below:{$p_1$}] at (1, -0.5) (p1) {};
+        \node[circle, color=babyblueeyes, fill, inner sep = 2pt, outer sep = 0pt, label = below:{$p_2$}] at (2.25, -0.5) (p2) {};
+        \node[circle, color=black , fill, inner sep = 2pt, outer sep = 0pt, label = below:{$p_3$}] at (5, -0.5) (p3) {};
+        \node[circle, color=yellow!60!black, fill, inner sep = 2pt, outer sep = 0pt, label = below:{$p_4$}] at (4, -0.5) (p4) {};
+
+        \node[circle, color=red!60!black, fill, inner sep = 2pt, outer sep = 0pt, label = above:{$q_1$}] at (6, 1) (q1) {};
+        \node[circle, color=babyblueeyes, fill, inner sep = 2pt, outer sep = 0pt, label = above:{$q_2$}] at (3, 1) (q2) {};
+        \node[circle, color=black , fill, inner sep = 2pt, outer sep = 0pt, label = above:{$q_3$}] at (0.5, 1) (q3) {};
+        \node[circle, color=yellow!60!black , fill, inner sep = 2pt, outer sep = 0pt, label = above:{$q_4$}] at (4, 1) (q4) {};
+
+        % Draw line segments.
+        \foreach \x in {1, ..., 4}
+            \draw[thick] (p\x) -- (q\x);
+    \end{tikzpicture}
+\end{center}
+should return 2. The largest subset of pairwise-nonintersecting line segments is $\{(p_2, q_2), (p_4, q_4)\}$.
+
+{\bfseries Note.} {\em This is slightly different to the divide-and-conquer problem, which asked for the number of intersections of line segments. This problem asks for the size of the largest subset of {\bfseries non-intersecting} line segments.}
+
+There are at least two approaches.
+
+{\bfseries Approach 1.} {\em You can directly use dynamic programming...}
+
+{\bfseries Approach 2.} {\em Find a way to reduce this to the longest increasing subsequence problem.}
+\end{question}
+
+\begin{solution}
+Solution goes here...
+\end{solution}
+\end{document}

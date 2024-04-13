@@ -1,0 +1,63 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+The city of UNSW has decided to partition High Street into voting districts. There are $n$ houses on High Street, living on consecutive addresses labelled $1, 2, \dots, n$. Each voting district is an interval of addresses $i, i + 1, \dots, j$ with $1 \leq i < j \leq n$. The city has enforced two constraints:
+\begin{enumerate}[label = (\arabic*)]
+    \item Each house on High Street must belong to {\em exactly} one voting district.
+    \item The number of houses in each district must lie between $k$ and $2k$, where $k$ is a parameter.
+\end{enumerate}
+
+In each election, houses can vote for either $\compproblem{Oceania}$ or $\compproblem{Eurasia}$ but they can only vote for one party. Since the majority of houses in the city of UNSW support $\compproblem{Oceania}$, the city deems a district {\em favourable} if more than half of the houses in the district support $\compproblem{Oceania}$; otherwise, the district is {\em unfavourable}. Of course, the city has a complete record of all of the votes in the election.
+
+The next election is coming up and the city has decided to ask you, as the budding algorithmist, to help assign districts. You are given a boolean array $\compproblem{Vote}[1..n]$, where $\compproblem{Vote}[i] = 1$ if resident $i$ voted for $\compproblem{Oceania}$ and $\compproblem{Vote}[i] = 0$ if resident $i$ voted for $\compproblem{Eurasia}$. You are also given an integer $k$. Describe an $O(nk^2)$ algorithm that returns the largest number of favourable districts in any legal partition of the houses.
+
+For example, consider the following legal partition of $n = 13$ houses with $k = 2$ (therefore, each district can be assigned 2 to 4 houses). Houses who voted for $\compproblem{Oceania}$ are coloured green and the houses who voted for $\compproblem{Eurasia}$ are coloured red. There are two favourable districts (coloured green) and two unfavourable districts (coloured red).
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        % District 1.
+        \draw[red!60, rounded corners, fill = red!5] (-0.5, -0.5) rectangle ++(1.9, 1);
+
+        % District 2.
+        \draw[green!60!black, rounded corners, fill = green!5] (1.45, -0.5) rectangle ++(2.85, 1);
+
+        % District 3.
+        \draw[red!60, rounded corners, fill = red!5] (4.35, -0.5) rectangle ++(1.85, 1);
+
+        % District 4.
+        \draw[green!60!black, rounded corners, fill = green!5] (6.25, -0.5) rectangle ++(2.8, 1);
+
+        % District 5.
+        \draw[red!60, rounded corners, fill = red!5] (9.1, -0.5) rectangle ++(2.8, 1);
+        
+        \node[circle, draw, fill = green!10] (a) {$G$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of a] (b) {$R$};
+        \node[circle, draw, fill = green!10, right = 0.25cm of b] (c) {$G$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of c] (d) {$R$};
+        \node[circle, draw, fill = green!10, right = 0.25cm of d] (e) {$G$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of e] (f) {$R$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of f] (g) {$R$};
+        \node[circle, draw, fill = green!10, right = 0.25cm of g] (h) {$G$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of h] (i) {$R$};
+        \node[circle, draw, fill = green!10, right = 0.25cm of i] (j) {$G$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of j] (k) {$R$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of k] (l) {$R$};
+        \node[circle, draw, fill = red!10, right = 0.25cm of l] (m) {$R$};
+    \end{tikzpicture}
+    \caption*{{\em A legal partition of houses to five districts. The first district is unfavourable, the second district is favourable, the third district is unfavourable, the fourth district is favourable, and the fifth district is unfavourable.}}
+\end{figure}
+{\bfseries Note.} {\em You may assume that a legal partition always exists. There is also an $O(kn)$ algorithm by doing some precomputation.}
+\end{question}
+
+\begin{solution}
+Solution goes here...
+\end{solution}
+\end{document}
