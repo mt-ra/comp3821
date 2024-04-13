@@ -28,11 +28,34 @@ Formally, you are given the list of $n$ people and the list of all pairs of peop
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here.
+    \item The basic idea is start with all vertices, and to keep removing vertices which violate the requirements.
+    First, for each vertex, find how many people they know, and how many people they do not know, and put this information in an array.
+    We then begin a loop where we repeatedly remove vertices which have less than 5 people they know or less than 5 people they do not know.
 
-    \item Solution to part (b) goes here.
+    For each iteration, scan through all vertices until you find one that has less than 5 people they don't know, or less than 5 people they know.
+    Mark this vertex as ``removed''. Then scan through all vertices. 
+    For each vertex, we want to update the array containing information about how many people they know and do not know
+    For each vertex, if is not removed, and it adjacent to the removed vertex, then decrement the number of people that person knows.
+    Otherwise, decrement the number of people that person does not know.
 
-    \item Solution to part (c) goes here.
+    Continue this until there aren't any unremoved vertices that violate the requirements.
+    The vertices remaining should form an optimal subset of people who can be invited.
+    
+    Finding the array of the number of people that a person knows and does not know takes $O(n^2)$ time.
+    At most $n$ vertices will be removed, and at each stage, removing an element requires scanning through all $n$ vertices.
+    Therefore the algorithm is $O(n^2)$.
+
+    \item Every person who is removed from the selection by this algorithm must be removed.
+    Suppose that person $u$ does not satisfy the requirements. 
+    Removing any combination of other people will not increase the number of people that $u$ knows, or does not know.
+    Therefore there does not exist a valid selection where $u$ is in it. 
+    Therefore all removals made by this algorithm are necessary, and there are no unnecessary removals.
+    This this is the optimal subset.
+
+    \item The union of two valid selections is also a valid selection. 
+    This is because adding people to an already valid selection does not 
+    decrease the number of people each person from the original selection knows, or does not know.
+    Therefore the family of valid selections is closed under union, and thus there is a unique largest element.
 \end{enumerate}
 \end{solution}
 \end{document}

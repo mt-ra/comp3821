@@ -15,6 +15,37 @@ Robbins' theorem says that a connected graph $G$ has a strong orientation if and
 \end{question}
 
 \begin{solution}
-Solution goes here.
+
+    \textbf{Orientation}
+    
+    Perform a DFS from a random vertex. 
+    For each pair of vertices $u, v$ such that $v$ is ever directly on top of $u$ in the DFS stack,
+    let $v$ be a child of $u$ in a imaginary tree that we are NOT constructing in practice. This produces a spanning tree of $G$ called a DFS tree, and this tree $T=(V, F)$.
+
+    A property of $T$ is that for each edge $(a, b)\in E$ such that $(a, b)\notin F$, 
+    either $a$ is either an ancestor or a descendant of $b$.
+    This is because the DFS traversal always goes as deep as possible, and any cross-edges would have been traversed during a DFS and hence added to $T$.
+
+    For each edge in $T$, orient the edge from parent to child.
+    For each edge not in $T$, one is an ancestor of the other, so orient the edge from descendent to ancestor. 
+
+    \textbf{Implementation}
+
+    As for a specific implementation, the edges in $T$ can be oriented during the DFS.
+    Whenever a vertex is pushed onto the stack, let the edge between the old top and the new top be oriented from the old top to the new top. 
+    During the stage of the DFS when we are checking for unvisited neighbours (that are not the parent), if a neighbour is already visited, then that neighbour is an ancestor (since there are no cross-edges), and thus orient that edge towards the ancestor.
+    
+    This is just a basic DFS with some constant time operations being performed along the way for each vertex and edge, and therefore this algorithm is linear time.
+
+    \textbf{Correctness}
+
+    There is obviously a path from the root of $T$ to every other vertex, along the oriented graph.
+    We want to show that for each vertex in the oriented graph, there exists a path to the root.
+
+    If there is a vertex such that there is no path to the root in the oriented graph, 
+    then the vertex from this vertex to its parent would be a bridge vertex.
+    This is because cross-edges do not exist, and therefore the only edge in $E$ between the component of the parent, and the component of the child is the edge directly connecting them. 
+    This contradicts the fact that the graph is bridgeless.
+    Therefore for all vertices, there is a path to the root, and there is a path from the root to every vertex, therefore there is a path from every vertex to every other vertex and hence the oriented graph is a strongly connected graph.
 \end{solution}
 \end{document}
