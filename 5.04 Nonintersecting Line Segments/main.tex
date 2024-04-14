@@ -44,6 +44,38 @@ There are at least two approaches.
 \end{question}
 
 \begin{solution}
-Solution goes here...
+
+    \textbf{Algorithm}
+
+    Sort the line segments $[(p_1, q_1), (p_2, q_2), \dots, (p_n, q_n)]$ in increasing order of the $p$ value. Solving LIS on this array (using the $q$ values) will give the final result.
+
+    \textbf{Time Complexity}
+
+    The initial sort takes $O(n\log n)$, and solving LIS takes $O(n^2)$, 
+    for a total of $O(n^2)$.
+
+    \textbf{Explanation}
+
+    Each subsequence on the array is a selection of line segments. We want to show that each increasing subsequence on the array is 
+     a selection of non-intersecting line segments and vice versa.
+
+    Assume for the sake of contradiction that there exists an intersection in an increasing subsequence of the array.
+    Let $(p_i, q_i), (p_j, q_j)$ be the two line segments which intersected, 
+    given in the order in which they appear in the array.
+    Since the array was sorted based in $p$ value, $p_i < p_j$. 
+    Thus to intersect, $q_i > q_j$, which contradicts the fact that this subsequence is increasing on its $q$ value.
+
+    Given a selection of non-intersecting line segments, write out this selection 
+    in increasing $p$ value. The $q$ values must also be increasing otherwise there will be
+    an intersection. Thus each selection of non-intersecting line segments 
+    corresponds to a increasing subsequence on the array.
+
+    Therefore finding the LIS on the array is equivalent to finding the size of the 
+    maximal selection of non-intersecting line segments.
+
+    
+
+
+
 \end{solution}
 \end{document}
