@@ -120,9 +120,77 @@ For example, consider the following sequence: \twemoji{up arrow} \twemoji{up arr
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here...
+    \item For any sequence of four arrows, no matter the starting position of your feet, 
+    it is possibe to get at least one point.
 
-    \item Solution to part (b) goes here...
+    If any arrow appears at least twice in the sequence, then not taking the foot off the first 
+    occurence of that arrow will result in scoring a lazy point when the second occurence  
+    reaches the top of the screen.
+
+    Otherwise, all arrows appear exactly once in the sequence.
+    This means that at least one of the arrows in the sequence 
+    will be the same as one of the arrows you are standing on initially.
+    If you only move your other foot, then you will earn a lazy point when that arrow 
+    reaches the top of the screen.
+
+    Therefore within each sequence of four arrows it is always possible to earn one lazy point, 
+    and so it is always possible to earn at least $\lfloor n/4\rfloor$ lazy points
+    during a round.
+
+    \pagebreak
+
+    \item 
+
+    \textbf{Subproblems}
+
+    Let $S=\{\twemoji{left arrow}, \twemoji{up arrow}, \twemoji{right arrow}, \twemoji{down arrow}\}$.
+    For $p_L, p_R \in S$ and $1\leq i \leq n$,
+    let $P(i, p_L, p_R)$ be the problem of determining the maximum number of lazy points you can earn 
+    up until the $i$-th arrow, such that $p_L$ and $p_R$ are the final positions of the left and right foot respectively.
+
+    Let $\mathrm{opt}(i, p_L, p_R)$ be the result of $P(i, p_L, p_R)$.
+    This function should return $-\infty$ if a playthrough is impossible without violating the strict rules.
+
+    \textbf{Recurrence}
+
+    We consider each possible positioning $(x,y)$ of both feet on the previous arrow, and choose the most optimal.
+    If the previous positioning is not valid, or it is impossible to get from the previous positioning $(x,y)$ to the 
+    current positioning $(p_L, p_R)$ without violating a rule, then the result of that subproblem is $-\infty$.
+
+    $$\mathrm{opt}(i,p_L, p_R) = \begin{cases}
+        -\infty &\text{if $A[i]\notin \{p_L, p_R\}$}\\
+        \displaystyle\max_{\substack x, y\in S}
+        \begin{cases}
+            -\infty &\text{if $x\neq p_L$ and $y\neq p_R$}\\
+            1 + \mathrm{opt}(i-1, x, y) &\text{if $x=p_L$ and $y=p_R$}\\
+            -\infty &\text{if $A[i]\in (x, y)$}\\
+            \mathrm{opt}(i-1, x, y) &\text{otherwise}\\
+        \end{cases} &\text{otherwise}
+        
+    \end{cases}    $$
+
+    \textbf{Base Cases}
+
+    We can use a dummy subproblem for our base case. For all $p_L, p_R \in S$,
+    $$\mathrm{opt}(0,p_L, p_R) = \begin{cases}
+        0 &\text{if $p_L = \twemoji{left arrow}$ and $p_R = \twemoji{right arrow}$}\\
+        -\infty&\text{otherwise}
+    \end{cases}    $$
+
+    \textbf{Order of Computation}
+
+    Solve the subproblems in increasing order of $i$. Within the same $i$, solve in any order.
+
+    \textbf{Overall Answer}
+    
+    $$\displaystyle\max_{\substack x, y\in S}\mathrm{opt}(n,x,y).$$
+
+    \textbf{Time Complexity}
+
+    There are $4\times 4\times n$ subproblems which is $O(n)$, each taking $O(1)$ time to solve.
+    The final answer takes $O(1)$ time to extract. Thus the total time complexity is $O(n)$.
+
+
 \end{enumerate}
 \end{solution}
 \end{document}
