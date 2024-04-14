@@ -37,9 +37,57 @@ The first twenty entries are given for you.
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here...
+    \item Every positive integer $n$ can be represented as the sum of $n$ ones.
 
-    \item Solution to part (b) goes here...
+    \item 
+
+    \textbf{Subproblems}
+
+For $1\leq i\leq n$, let $P(i)$ be the problem of determining the 
+complexity of $i$.
+
+\textbf{Recurrence}
+
+Either $i$ is a product, or a sum.
+
+Let $\mathrm{prod}(i)$ be the minimum complexity of $i$ if it was a product.
+Let $\mathrm{sum}(i)$ be the minimum complexity of $i$ if it was a sum.
+
+$$
+\mathrm{sum}(i) = 1 + \mathrm{opt}(i-1).
+$$
+
+$$
+\mathrm{prod}(i) = \min_{2\leq j\leq \sqrt{i}}\begin{cases}
+    \mathrm{opt}(i) + \mathrm{opt}(i/j) &\text{if $j|i$}\\
+    \infty &\text{otherwise}
+\end{cases}.
+$$
+
+$$
+\mathrm{opt}(i)=\min(\mathrm{sum}(i), \mathrm{prod}(i)).
+$$
+
+\textbf{Base Cases}
+
+$$\mathrm{opt}(1)=1.$$
+
+\textbf{Order of Computation}
+
+Compute in increasing order of $i$.
+
+\pagebreak
+
+\textbf{Overall Answer}
+
+$$\mathrm{opt}(n).$$
+
+\textbf{Time Complexity}
+
+There are $O(n)$ subproblems, and computing each one is either $O(1)$, or involves scanning through $O(n)$
+candidate factors to find the optimal factorisation.
+
+
 \end{enumerate}
 \end{solution}
 \end{document}

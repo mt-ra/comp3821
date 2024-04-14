@@ -57,7 +57,45 @@ For example, consider the following legal partition of $n = 13$ houses with $k =
 {\bfseries Note.} {\em You may assume that a legal partition always exists. There is also an $O(kn)$ algorithm by doing some precomputation.}
 \end{question}
 
+\pagebreak
 \begin{solution}
-Solution goes here...
+
+
+
+
+\textbf{Subproblems}
+
+For $1\leq i\leq n$, let $P(i)$ be the problem of determining the maximum 
+number of favourable districts that can be formed on the houses from $1$ to $i$.
+
+\textbf{Recurrence}
+$$
+\mathrm{opt}(i)=\max_{k\leq j \leq 2k}\begin{cases}
+    1+\mathrm{opt}(i-j) &\text{if $\textsc{Vote}[(i-j+1)..i]$ is favourable}\\
+    \mathrm{opt}(i-j) &\text{otherwise}
+\end{cases}
+$$
+
+\textbf{Preprocessing}
+
+Use a prefix sum array so that you can determine if a district is favourable 
+or not in $O(1)$ time, given the endpoints of the district.
+
+\textbf{Base Cases}
+
+For $i<2k$, $\mathrm{opt}(i)$ is equal to $1$ if $\textsc{Vote}[1..i]$ is favourable and $0$ otherwise.
+
+\textbf{Order of Computation}
+
+Compute subproblems in increasing order of $i$.
+
+\textbf{Overall Answer}
+
+$$\mathrm{opt}(n).$$
+
+\textbf{Time Complexity}
+
+There are $O(n)$ subproblems, each taking $O(k)$ time to compute, for a total of $O(nk)$.
+
 \end{solution}
 \end{document}
