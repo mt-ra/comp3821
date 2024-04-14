@@ -20,9 +20,73 @@ You are given a long piece of stick of length $L$. You want to cut the stick int
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here...
+    \item 
 
-    \item Solution to part (b) goes here...
+    \textbf{Subproblems}
+
+    Define some dummy array elements $A[0] = 0$ and $A[n+1] = L$.
+    For $0\leq i \leq j \leq n+1$, let $P(i, j)$ be the problem of determining the minimum number of units of work required 
+    to cut the stick which begins at $A[i]$ and ends at $A[j]$, cutting at the positions $A[(i+1)..(j-1)]$.
+
+    \textbf{Recurrence}
+    $$
+    \mathrm{opt}(i,j)=A[j] - A[i] + \min_{i<k<j}(\mathrm{opt}(i,k) + \mathrm{opt}(k,j))
+    $$
+
+    \textbf{Base Cases}
+
+    For all $i$, $\mathrm{opt}(i, i+1) = 0$.
+
+    \textbf{Order of Computation}
+
+    Compute the subproblems $P(i,j)$ in order of increasing difference $j-i$.
+
+    \textbf{Overall Answer}
+    $$ \mathrm{opt}(0,n+1).$$
+
+    \textbf{Time Complexity}
+
+    There are $O(n^2)$ subproblems, each taking $O(n)$ time to compute, for a total of $O(n^3)$.
+
+    \item 
+
+    \textbf{Subproblems}
+
+    Define some dummy array elements $A[0] = 0$ and $A[n+1] = L$.
+    For $0\leq i \leq j \leq n+1$, let $P(i,j)$ be the problem of determining the 
+    minimum number of units of work $\mathrm{opt}(i,j)$ required to cut the stick 
+    beginning at $A[i]$ and ending at $A[j]$, as well as determining $\mathrm{spl}(i,j)$
+    which is the optimal index $i < k < j$ at which to cut the stick to ensure the least 
+    amount of work.
+
+    \textbf{Recurrence}
+
+    $$
+    \mathrm{opt}(i,j)=A[j] - A[i] + \min_{\mathrm{spl}(i,j-1)<k<\mathrm{spl}(i+1,j)}(\mathrm{opt}(i,k) + \mathrm{opt}(k,j))
+    $$
+
+    $$
+    \mathrm{spl}(i,j)= \mathrm{arg}\min_{\mathrm{spl}(i,j-1)<k<\mathrm{spl}(i+1,j)}(\mathrm{opt}(i,k) + \mathrm{opt}(k,j))
+    $$
+
+
+    \textbf{Base Cases}
+
+    For all $i$, $\mathrm{opt}(i, i+1) = 0$ and $\mathrm{spl}(i, i+2) = i+1$.
+
+    \textbf{Order of Computation}
+
+    Compute the subproblems $P(i,j)$ in increasing difference $j-1$.
+
+    \textbf{Overall Answer}
+    $$ \mathrm{opt}(0,n+1).$$
+
+    \textbf{Time Complexity}
+
+    Since the ranges $(\mathrm{spl}(i,j-1), \mathrm{spl}(i+1,j)), (\mathrm{spl}(i+1, j), \mathrm{spl}(i+2, j+1), \dots$ are non-intersecting, scanning through all possible split locations 
+    for a certain difference $j-i$ takes $O(n)$ time in total. 
+    Since there are $O(n)$ possible differences $j-i$, the full algorithm takes $O(n^2)$ time.
+
 \end{enumerate}
 \end{solution}
 \end{document}
