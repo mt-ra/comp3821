@@ -24,9 +24,61 @@ We are given a directed and weighted graph $G = (V, E, w)$, where $w(e) > 0$ for
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here...
+    \item 
 
-    \item Solution to part (b) goes here...
+    \textbf{Subproblems}
+
+    For $u, v\in V$ and $1\leq i \leq k$, let $P(u, v, i)$ be the problem of determining $\mathrm{opt}(u, v, i)$, the shortest 
+    path from $u$ to $v$ that uses only red edges, and has a length at most $i$.
+
+    \textbf{Recurrence}
+
+    If $i$ is even then
+    $$
+    \mathrm{opt}(u, v, i) = \min_{w \in V}(\mathrm{opt}(u, w, i/2) + \mathrm{opt}(w, v, i/2)).
+    $$
+
+    If $i$ is odd then
+    $$
+    \mathrm{opt}(u, v, i) = \min_{w \in V}(\mathrm{opt}(u, w, i - 1) + \mathrm{opt}(w, v, 1)).
+    $$
+
+    Note that $w$ can be equal to $u$ or $v$, which is the same as allowing the choice to not 
+    choose any intermediate vertex at all.
+
+    \textbf{Base Cases}
+
+    If $u = v$ then $\mathrm{opt}(u, v, i)=0$ for all $i$. 
+    
+    If $(u,v)\in E$, then $\mathrm{opt}(u, v, 1)=w((u, v))$. Otherwise $\mathrm{opt}(u, v, 1) = \infty$.
+
+    \textbf{Order of Computation}
+
+    Starting from $i = 1$, we can always reach $k-1$ using a sequence of doubling $i$, or adding 1 to $i$. 
+    The shortest such sequence of operations can be found by looking at the binary representation of $k-1$. 
+    Starting from right to left, if there is a $0$ then multiply $i$ by 2, and compute $P(u,v,i)$ for all $u,v\in V$.
+    If there is a $1$, then add $1$ to $i$ and compute $P(u,v,i)$, and then muliply $i$ by 2 and compute $P(u,v,i)$, for all $u,v\in V$.
+
+    Continue this until $P(u, v, k-1)$ has been computed for all $u,v\in V$.
+
+
+    \textbf{Overall Answer}
+    $$\mathrm{opt}(u, v, k-1).$$
+
+    \textbf{Time Complexity}
+
+    The sequence of operations that we perform on $i$ as in increases towards $k-1$
+    has a size which is on the order of the number of digits in the binary representation 
+    of $k-1$, which is $O(\log k)$. Therefore there are $O(n^2 \log k)$ subproblems.
+    Each takes $O(n)$ time to compute, giving a total of $O(n^3 \log k)$.
+
+    \pagebreak
+    \item 
+    After running the $O(n^3 \log k)$ DP to compute $\textsc{onlyRedEdges}(u, v, k-1)$, we can query the result of this function for any pair $u,v\in V$ in constant time, since the result is memoized.
+
+    Perform Floyd-Warshall's algorithm 
+
+
 \end{enumerate}
 \end{solution}
 \end{document}
