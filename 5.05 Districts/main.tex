@@ -83,7 +83,8 @@ or not in $O(1)$ time, given the endpoints of the district.
 
 \textbf{Base Cases}
 
-For $i<2k$, $\mathrm{opt}(i)$ is equal to $1$ if $\textsc{Vote}[1..i]$ is favourable and $0$ otherwise.
+For $k\leq i<2k$, $\mathrm{opt}(i)$ is equal to $1$ if $\textsc{Vote}[1..i]$ is favourable and $0$ otherwise.
+For $i < k$, $\mathrm{opt}(i)$ is equal to $-\infty$, as this is invalid. 
 
 \textbf{Order of Computation}
 
