@@ -76,8 +76,31 @@ We are given a directed and weighted graph $G = (V, E, w)$, where $w(e) > 0$ for
     \item 
     After running the $O(n^3 \log k)$ DP to compute $\textsc{onlyRedEdges}(u, v, k-1)$, we can query the result of this function for any pair $u,v\in V$ in constant time, since the result is memoized.
 
-    Perform Floyd-Warshall's algorithm 
+    We will construct an auxilliary graph with two layers: a red layer and a blue layer.
+    Each layer contains $n$ vertices, each vertex corresponding to one of the vertices in $G$.
+    The layer that a visitor is in determines the colour of the edge that the visitor has last crossed.
 
+    If $(u,v)$ is an blue edge in $G$, then let there be an edge from the 
+    $u_{\text{blue}}$ to $v_{\text{blue}}$ and an edge from 
+    $u_{\text{red}}$ to $v_{\text{blue}}$, both edges
+    having a weight of $w(u,v)$.
+    This represents the fact that after a visitor has crossed a blue edge, 
+    they can cross another blue edge. 
+    Also if a visitor has just crossed a red edge, then they can also take a blue edge.
+
+    For all pairs of vertices $(u,v)$ in $G$ such that $\textsc{onlyRedEdges}(u, v, k-1)$ is not infinite,
+    let there be an edge from $u_{\text{blue}}$ to $v_{\text{red}}$ with a 
+    weight of $\textsc{onlyRedEdges}(u, v, k-1)$. 
+    This represents the fact that only after crossing a blue edge, can you take a path 
+    of red edges.
+
+    Constructing this graph takes $O(n^2)$ time, as each pair of vertices must be considered.
+    Perform Floyd-Warshall's algorithm on this auxilliary graph, taking $O(n^3)$ time.
+    This Floyd-Warshall's algorithm must be modified such that the initial distances from each vertices 
+    to themself is infinity. This ensures that only paths of non-zero length are considered.
+
+    Out of all the vertices $u_{\text{red}}$ in the red layer, find the one such that the shortest path 
+    on the auxilliary graph from $u_{\text{red}}$ to itself. This takes $O(n)$ time.
 
 \end{enumerate}
 \end{solution}

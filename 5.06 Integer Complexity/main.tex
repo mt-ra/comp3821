@@ -54,7 +54,7 @@ Let $\mathrm{prod}(i)$ be the minimum complexity of $i$ if it was a product.
 Let $\mathrm{sum}(i)$ be the minimum complexity of $i$ if it was a sum.
 
 $$
-\mathrm{sum}(i) = 1 + \mathrm{opt}(i-1).
+\mathrm{sum}(i) = \min_{1\leq j\leq i/2} \mathrm{opt}(i) + \mathrm{opt}(i-j)
 $$
 
 $$
