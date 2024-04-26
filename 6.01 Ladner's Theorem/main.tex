@@ -1,0 +1,36 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+\begin{enumerate}[label = (\alph*)]
+    \item Suppose that $\mathsf P = \mathsf{NP}$. Prove that $\mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right) = \emptyset$.
+
+    \item Suppose now that $\mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right) = \emptyset$. Prove that $\mathsf P = \mathsf{NP}$.
+\end{enumerate}
+
+{\bfseries Note.} {\em This is the corollary of Ladner's theorem.}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item 
+    \begin{align*}
+    \mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right) &= \mathsf{NP} \setminus (\mathsf{NP} \cup \mathsf{NP\text{-}C})\\
+    &= \mathsf{NP} \setminus (\mathsf{NP} \cup (\mathsf{NP}\cap \mathsf{NP\text{-}H}))\\
+    &= \mathsf{NP} \setminus \mathsf{NP}\\
+    &= \emptyset
+    \end{align*}
+
+    \item 
+    Ladner's theorem states that if $\mathsf{P}\neq \mathsf{NP}$, then there exists a language in $\mathsf{NP}$ that 
+    is neither in $\mathsf{P}$, nor $\mathsf{NP\text{-}C}$.
+    This means that if $\mathsf{P}\neq \mathsf{NP}$ then $\mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right)$ is non-empty. Taking the contrapositive gives us that if $\mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right)=\emptyset$ then $\mathsf{P} = \mathsf{NP}$ as required.
+ 
+\end{enumerate}
+\end{solution}
+\end{document}

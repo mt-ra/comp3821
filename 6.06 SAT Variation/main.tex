@@ -1,0 +1,28 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Consider the following problem, which we call $\exists_2\compproblem{\text{-}Sat}$.
+
+\begin{itemize}
+    \item[] {\bfseries Input.} A boolean formula $\varphi(\mathbf x, \mathbf y)$ in $2n$ variables, where $\mathbf x, \mathbf y \in \{0, 1\}^n$.
+
+    \item[] {\bfseries Task.} Decide if there exist an assignment for $\mathbf x$ such that, for all $\mathbf y \in \{0, 1\}^n$, $\varphi(\mathbf x, \mathbf y)$ is true.
+\end{itemize}
+
+For example, consider the following boolean formula $\varphi(\mathbf x, \mathbf y) = (x_1 \land x_2) \lor (y_1 \land y_2)$. Assigning $x_1 = x_2 = 1$ produces a tautological formula and hence, any binary string for $\mathbf y$ satisfies $\varphi(\mathbf x, \mathbf y)$.
+
+Prove that, if $\mathsf P = \mathsf{NP}$, then $\exists_2\compproblem{\text{-}Sat} \in \mathsf P$.
+
+{\bfseries Hint.} {\em If $\mathsf P = \mathsf{NP}$, there exist a polynomial-time algorithm that solves $\compproblem{Sat}$...}
+\end{question}
+
+\begin{solution}
+Solution begins here...
+\end{solution}
+\end{document}

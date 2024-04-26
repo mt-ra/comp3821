@@ -1,0 +1,38 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected and unweighted graph. We define two kinds of colourings for this problem.
+
+A {\em poor colouring} assigns each vertex a set of two {\em distinct} colours such that each edge must use two different sets of colours. However, they may share a common colour. In other words, the endpoints of each edge in a poor colouring can share {\em at most} one common colour.
+
+A {\em rich colouring} assigns each vertex a set of two colours such that each edge must use two different sets of colours. Additionally, they may not share any colour. In other words, the endpoints of each edge in a rich colouring uses {\em exactly} four distinct colours. Therefore, every rich colouring is also a poor colouring.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Given a graph $G = (V, E)$, show that it is $\mathsf{NP\text-H}$ to decide if $G$ has a poor colouring using three colours.
+
+    {\bfseries Hint.} {\em There is an easy reduction from $\compproblem{3Col}$...}
+
+    \item Given a graph $G = (V, E)$, show that deciding if $G$ has a rich colouring is solvable in polynomial time when using two, three, and four colours. Why doesn't this contradict the fact that deciding if $G$ has a poor colouring using three colours is $\mathsf{NP\text-H}$?
+
+    {\bfseries Hint.} {\em Show that $G$ has a rich colouring using two and three colours if and only if $G$ has no edges, and show that $G$ has a rich colouring using four colours if and only if $G$ is bipartite.}
+
+    \item Show that it is $\mathsf{NP\text-H}$ to decide if $G$ has a rich colouring using five colours.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) begins here...
+
+    \item Solution to part (b) begins here...
+
+    \item Solution to part (c) begins here...
+\end{enumerate}
+\end{solution}
+\end{document}

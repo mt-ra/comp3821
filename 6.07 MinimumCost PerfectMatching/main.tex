@@ -1,0 +1,50 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E, w)$ be a weighted graph, where $w(e)$ denotes the weight of a given edge $e$. A {\em matching} is a subset $M \subseteq E$ of edges such that no two edges in $M$ share a common vertex. A matching is {\em perfect} if every vertex is included in exactly one edge in $M$.
+
+Consider the following two problems:
+
+\begin{itemize}
+    \item $\compproblem{MinCostPerfectMatching}$ $(\compproblem{mcpm})$: given a weighted graph $G = (V, E, w)$, where the edge weights can be positive, negative, or zero, find a minimum-cost perfect matching $M$ (if there exist one; otherwise, report that none exists), where the cost of a matching $M$ is given by \[w(M) = \sum_{e \in M} w(e).\]
+
+    \item $\compproblem{MaxWeightedPerfectMatching}$ $(\compproblem{mwpm})$: given a weighted graph $G = (V, E, w)$, where the edge weights are {\em non-negative}, find a maximum-weighted perfect matching $M$ (if there exist one; otherwise, report that none exists), where the weight of a matching $M$ is given by \[w(M) = \sum_{e \in M} w(e).\]
+\end{itemize}
+
+Consider the following polynomial-time reduction from $\compproblem{mcpm}$ to $\compproblem{mwpm}$.
+
+{\bfseries Reduction}: Let $n$ be the number of vertices in $G$. If $n$ is odd, then there are no perfect matchings so report that none exists. We will now assume that the number of vertices is even. For each edge $e \in E$, define $\hat w(e) = w_{\max} - w(e) + 1$, where $w_{\max} = \max_{e \in E} w(e)$. Let $\displaystyle\Delta = \sum_{e \in E} \hat w(e)$.
+
+We construct $G^* = (V^*, E^*, w^*)$ as follows: we keep the same vertices and edges; that is, $V^* = V$, $E^* = E$. For each edge $e \in E^*$, we have $w^*(e) = \hat w(e) + \Delta$. Clearly, $G^*$ is a graph that has {\em non-negative} edge weights so $G^*$ is a valid instance to $\compproblem{mwpm}$. Moreover, $G^*$ can be constructed in polynomial-time.
+
+Your task is to prove the correctness of the reduction by proving each of the following claims.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Firstly, argue that $G$ has a perfect matching if and only if $G^*$ has a perfect matching.
+
+    \item Suppose that $G^*$ has a perfect matching. Prove that a maximum weighted matching in $G^*$ is also a maximum weighted {\em perfect} matching.
+
+    \item Let $M$ be a matching. Prove that $M$ is a minimum-cost perfect matching in $G$ {\em if and only if} $M$ is a maximum-weighted perfect matching in $G^*$.
+
+    \item Hence, conclude that the reduction is correct.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Solution to part (a) begins here...
+    
+    \item Solution to part (b) begins here...
+    
+    \item Solution to part (c) begins here...
+
+    \item Solution to part (d) begins here...
+\end{enumerate}
+\end{solution}
+\end{document}
