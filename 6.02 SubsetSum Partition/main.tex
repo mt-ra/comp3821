@@ -26,9 +26,50 @@ Consider the following pair of problems.
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here...
+    \item To solve $\compproblem{Partition}$ with the set $S$ of size $n$, 
+    Let $s$ be the sum of elements in $S$.
+    Solve $\compproblem{SubsetSum}$ with the set $S$ and target sum $T = s/2$, and return the result.
+    This reduction is polynomial time, as it only involves looking at all the elements of $S$ once each.
 
-    \item Solution to part (b) goes here...
+    If the algorithm that decides $\compproblem{SubsetSum}$ returns $1$, upon being given the inputs $(S, s/2)$, 
+    then this means that there exists a subset $S_1\subseteq S$ which sums to $s/2$, and hence
+     $S_2 = S\setminus A$ 
+sums to $s - s/2 = s/2$, and therefore there is a way to partition $S$ into two subsets which have the same sum.
+
+    If it is possible to partition $S$ into two subsets $S_1, S_2$ which have the same sum, 
+    then both these subsets will have a sum of $s/2$. This means that there exists a subset of
+    $S$ which sums to $s/2$.
+
+    \item This solution only works if we use multisets instead of sets but Gerald said that this was the intended way.
+
+    To solve $\compproblem{SubsetSum}$ on set $S$ with a target sum of $T$, let $s$ be the sum of $S$.
+    If $T$ is larger than $s$, or negative, then return $0$. 
+
+    Note that solving $\compproblem{SubsetSum}$ on $(S, T)$ is equivalent to solving it on $(S, s-T)$.
+    If $s/2 < T \leq s$, then we can solve the equivalent problem with $T' = s-T$ where $0\leq T\leq s/2$. 
+    This means that we only need to consider the cases where $0\leq T \leq s/2$.
+
+    Assume now that $0\leq T\leq s/2$. We will consider the integer $x=s-2T$. Due to our assumed bounds on $T$,
+    we know that $x$ is non-negative. Let $S'=S\cup\{x\}$. Solving $\compproblem{Partition}$ with $S'$ as input
+    provides the answer. This reduction is polynomial time as it just involves finding the sum of elements.
+
+    Suppose that $S'$ is a yes instance of $\compproblem{Partition}$.
+    This means that there does exist a partition into subsets of equal sums.
+    Since $x$ is added to $S$ to form $S'$, the sum of $S'$ is $s + x=2s-2T$.
+    The sum of each partition must be $s - T$. 
+    The number $x$ must occur in one of these partitions. The remaining elements in this partition 
+    therefore sum to $(s-T)-(s-2T)=T$. These remaining elements were originally in $S$, 
+    and therefore there does exist a subset of $S$ that sums to $T$, and so $(S, T)$ is a yes instance of $\compproblem{SubsetSum}$.
+
+    Now suppose that $(S, T)$ is a yes instance of $\compproblem{SubsetSum}$.
+    This means that there exists a subset $R\subseteq S$ such that the sum of $R$ is $T$.
+    Partitioning $S'$ into $R\cup \{x\}$ and its complement will give two subsets with the same sum $T+(s-2T)=s-T$.
+    Therefore $S'$ is also a yes instance of $\compproblem{Partition}$.
+
+
+
+
+
 \end{enumerate}
 \end{solution}
 \end{document}
