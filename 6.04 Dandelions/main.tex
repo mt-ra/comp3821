@@ -44,6 +44,39 @@ Given a graph $G$, prove that it is $\mathsf{NP}$-hard to find the length of the
 \end{question}
 
 \begin{solution}
-Solution begins here...
+Let $\compproblem{Dandelion}$ be the decision problem of determining if there exists 
+a dandelion of length $k$ on a graph.
+This problem trivially reduces to the corresponding optimisation problem 
+of determining the length of the longest dandelion subgraph.
+
+Let $G=(V,E)$ be an instance of $\compproblem{HamiltonianPath}$. Let $n$ be the number of vertices and 
+$m$ be the number of edges.
+Create a new graph $G'$ which contains all the vertices and edges in $G$,
+But each vertex in $V$ is connected to $n + 1$ additional vertices.
+Therefore $G'$ has an additional $n(n+1)$ vertices.
+Solve $\compproblem{Dandelion}$ on the graph $G'$, where we are trying to find a dandelion 
+of length $k = n + 1$. 
+
+If $G$ is a yes instance of $\compproblem{HamiltonianPath}$, 
+then there exists a path of length of length $n$ on $G$ which visits each vertex exactly once.
+We can extend one end of the path by one, into one of the additional vertices,
+to form a path of length $n + 1$. At the other end of the path, that vertex was originally in 
+$G$, and therefore has $n+1$ additional vertices attached to it in $G'$.
+Therefore there is a dandelion of length $n + 1$ on $G'$, and hence $(G', n+1)$ is 
+a yes instance of $\compproblem{Dandelion}$.
+
+Suppose that $(G', n+1)$ is a yes instance of $\compproblem{Dandelion}$.
+Note that the longest path that can exist on $G'$ has a length of $n+2$.
+It consists of a Hamiltonian Path of $G$, extended by one vertex at both ends.
+This path cannot be extended any more since the degree of all of the added vertices are pendant vertices.
+Since the diameter of the dandelion of length $n+1$ is $n+2$, 
+this means that a path of $n+2$ exists on $G'$, namely the stalk of the dandelion plus one of the seeds.
+Therefore $G$ has a Hamiltonian path and hence $G$ is a yes instance of $\compproblem{HamiltonianPath}$.
+
+Therefore $\compproblem{HamiltonianPath}$ reduces to $\compproblem{Dandelion}$ 
+which in turn reduces to the optimisation problem in question, and hence the optimisation 
+problem is $\mathsf{NP\text{-}H}$.
+
+
 \end{solution}
 \end{document}

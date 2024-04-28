@@ -7,20 +7,39 @@
 
 \begin{document}
 \begin{question}
+Consider the two pair of problems.
+\begin{itemize}
+    \item $\compproblem{Sorting}$: {\em Given a set of $n$ integers, the task is to sort the integers in increasing order.}
+    \item $\compproblem{ConvexHull}$: {\em Given a set $X$ of $n$ 2-dimensional points, the task is to compute the smallest convex set (i.e. a set that can be formed by joining line segments) that contains all of the points in $X$.}
+\end{itemize}
+
 \begin{enumerate}[label = (\alph*)]
-    \item Suppose that $\mathsf P = \mathsf{NP}$. Prove that $\mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right) = \emptyset$.
+    \item Show that there exist a linear-time reduction from $\compproblem{Sorting}$ to $\compproblem{ConvexHull}$.
+    \item Hence, deduce that any algorithm which solves $\compproblem{ConvexHull}$ has an $\Omega(n \log n)$ lower bound.
 
-    \item Suppose now that $\mathsf{NP} \setminus \left(\mathsf P \cup \mathsf{NP\text{-}C}\right) = \emptyset$. Prove that $\mathsf P = \mathsf{NP}$.
+    {\em This means that, in the worst case, an algorithm such as \href{https://en.wikipedia.org/wiki/Graham_scan}{Graham scan} and \href{https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain}{Monotone chain} is tight.}
 \end{enumerate}
-
-{\bfseries Note.} {\em This is the corollary of Ladner's theorem.}
 \end{question}
 
 \begin{solution}
 \begin{enumerate}[label = (\alph*)]
-    \item Solution to part (a) goes here...
+    \item For each integer $k$ in the input of $\compproblem{Sorting}$, 
+    insert $(k, k^2)$ into the set $X$, which will be the input for $\compproblem{ConvexHull}$.
+    The result is the points in the convex hull in anticlockwise order.
+    Scanning through the convex hull for the minimum element, and then marching anticlockwise along the convex hull, 
+    will give the input array in sorted order.
 
-    \item Solution to part (b) goes here...
+    This reduction is linear time as only two linear scans are performed along containers of size $n$.
+
+
+    \item We already know that sorting can be done in no faster than $O(n\log n)$ time.
+    By using the reduction to $\compproblem{ConvexHull}$, we can 
+    solve $\compproblem{Sorting}$ in $O(n)$ (the time taken to do the reduction) plus 
+    the time taken to do $\compproblem{ConvexHull}$.
+    If a general $\compproblem{ConvexHull}$ instance could be solved in any faster than $O(n\log n)$ time, 
+    then this would mean that $\compproblem{Sorting}$ could be solved in faster than $O(n\log n)$ time,
+    which is impossible. Therefore any algorithm which solves $\compproblem{ConvexHull}$ has a $\Omega(n\log n)$ lower bound.
+    % FINISH THIS
 \end{enumerate}
 \end{solution}
 \end{document}
